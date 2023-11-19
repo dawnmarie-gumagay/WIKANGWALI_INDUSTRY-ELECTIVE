@@ -1,0 +1,70 @@
+/*OVERALLS*/
+*{
+  background-color: #38b7fe;
+  margin: 0;
+  padding: 0;
+}
+div, p, a, li, nav, form{
+  background-color: transparent;
+}
+.logo-landing{
+  background-image: url(./LoggedOutAssets/logo-landing.png);
+  width: 400px;
+  height: 400px;
+  display: flex;
+  border: none;
+  background-color: white;
+  align-items: center;
+}
+.lp-left,
+.lp-right{
+  flex: 1;
+  padding: 20px; /* Add padding or adjust as needed */
+  margin: 10px;
+}
+.btnGetStarted{
+  background-color: #38b7fe;
+  border: none;
+  color: white;
+  border-radius: 50px;
+  width: 300px;
+  padding: 20px;
+  font-size: 30px;
+  font-family: 'Bangers';
+  cursor: pointer;
+}
+.logo-sign{
+  background-image: url(./LoggedOutAssets/logo-sign.png);
+  width: 400px;
+  height: 369px;
+  background-color: transparent;
+}
+.lbl-form{
+  background-color: transparent;
+  color: grey;
+  font-size: 15px;
+  text-align: left;
+}
+.input-form{
+  background-color: transparent;
+  border: 1px solid black;
+  padding: 10px;
+  border-radius: 30px;
+  width: 200px
+}
+.btnSign{
+  padding: 10px;
+  border: none;
+  background-color: #2b6bb0;
+  color: white;
+  font-size: 15px;
+  border-radius: 30px;
+  cursor: pointer;
+  width: 150px;
+}
+.signing-icon{
+  color:#555;
+  width: 30px; 
+  height: 30px;
+  background-color:transparent;
+}

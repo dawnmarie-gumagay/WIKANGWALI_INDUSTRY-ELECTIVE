@@ -1,0 +1,61 @@
+/*FOR ALL*/
+h1, div, p, button{
+  background-color: transparent;
+}
+.align{
+  display: flex;
+}
+
+/*LOG OUT CONFIRM PAGE*/
+.loh{
+  font-family: 'Bangers';
+  color: #0745A3;
+  font-size: 50px;
+}
+.lod{
+  background-color: #67E4FF;
+  padding: 30px;
+  width: 400px;
+  border-radius: 50px;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.lod p{
+  font-family: 'Love Ya Like A Sister';
+  color: #0745A3;
+  font-size: 30px;
+  margin-top: 20px;
+}
+.logout-birb{
+  background-image: url(./logoutconfirm.png);
+  width: 100px;
+  height: 100px;
+}
+.lod button{
+  margin: 10px;
+  padding: 10px;
+  border-radius: 50px;
+  font-family: 'Bangers';
+  cursor: pointer;
+  font-size: 30px;
+  width: 150px;
+}
+.lod-cancel{
+  border: 5px solid white;
+  background-color: white;
+  color: #2B6BB0;
+}
+.lod-cancel:hover{
+  border: 5px solid #2B6BB0;
+}
+.lod-logout{
+  border: 5px solid #2B6BB0;
+  background-color: #2B6BB0;
+  color: white;
+}
+.lod-logout:hover{
+  border: 5px solid white;
+}
