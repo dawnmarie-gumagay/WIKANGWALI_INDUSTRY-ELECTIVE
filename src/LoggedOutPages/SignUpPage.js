@@ -71,7 +71,7 @@ export default function SignInPage() {
         </h1>
         <p style={{backgroundColor:'transparent', fontFamily:'Love Ya Like A Sister', color:'#2B6BB0'
                     }}>
-          Sign in to your Account
+          Create your account
         </p>
         <br/>
 
@@ -113,11 +113,11 @@ export default function SignInPage() {
             />
           </div>
 
-          <br/><br/>
+          <br/>
           <input type='submit' className='btnSign' value='Sign Up'></input>
         </form>
         <p className='trans-bg'>
-          Already have an account? <a href='#SignInPage' className='trans-bg'>Sign In</a>
+          Already have an account? <Link to="/SignInPage">Sign In</Link>
         </p> 
       </div>
     </div>

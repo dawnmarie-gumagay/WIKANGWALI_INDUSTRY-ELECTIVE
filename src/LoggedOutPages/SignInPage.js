@@ -1,55 +1,68 @@
-import React from 'react';
+// SignInPage.js
+import React, { useState } from 'react';
 import { Icon } from '@iconify/react';
-import './loggedout-styles.css';
 import { Link } from 'react-router-dom';
 
-export default function SignInPage() {
+const SignInPage = ({ onLogin }) => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [invalidCredentials, setInvalidCredentials] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      // Assuming your API returns a success status when login is successful
+      const response = await fetch('http://localhost:8080/user/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      if (response.ok) {
+        // Call the onLogin function to update the parent component's state
+        onLogin();
+        console.log('Login successful');
+      } else if (response.status === 401) {
+        // If status is 401, set invalidCredentials to true
+        setInvalidCredentials(true);
+        console.error('Invalid credentials');
+      } else {
+        console.error('Login failed');
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+    }
+  };
+
   return (
-    <div style={{backgroundColor:'transparent', display: 'flex', justifyContent: 'space-between'}}>
-
-      <div className='lp-left trans-bg'>
-        <Link to="/Signing">
-          <button style={{backgroundColor:"#2B6BB0", border:"none", borderRadius:"100px", cursor:'pointer'}}>
-            <Icon icon="mingcute:back-fill" color="white" width="50" height="50" style={{ backgroundColor: 'transparent' }}/>
-          </button>
-        </Link>
-        <div className='logo-sign'/>
-        
-      </div>
-
-      <div className='lp-right trans-bg' style={{textAlign:'center'}}>
-        <h1 className='trans-bg' style={{ fontFamily:"Bangers", fontSize:"70px", color:'#2B6BB0'}}>
+    <div style={{ backgroundColor: 'transparent', display: 'flex', justifyContent: 'space-between' }}>
+      {/* ... existing code ... */}
+      <div className='lp-right' style={{ textAlign: 'center' }}>
+        <h1 style={{ fontFamily: 'Bangers', fontSize: '70px', color: '#2B6BB0' }}>
           WELCOME!
         </h1>
-        <p style={{backgroundColor:'transparent', fontFamily:'Love Ya Like A Sister', color:'#2B6BB0'
-                    }}>
+        <p style={{ fontFamily: 'Love Ya Like A Sister', color: '#2B6BB0' }}>
           Sign in to your Account
         </p>
-        <br/>
-        <form className='trans-bg'>
-          <label className='lbl-form'>Email</label><br/>
-          <div class='trans-bg' style={{display:'flex'}}>
-            <Icon icon="solar:user-outline" className='signing-icon'/>
-            <input type='email' className='input-form'/>
-          </div>
-          
-          <br/>
-          <label className='lbl-form'>Password</label><br/>
-          <div class='trans-bg' style={{display:'flex'}}>
-            <Icon icon="solar:lock-outline" className='signing-icon'/>
-            <input type='password' className='input-form'/>
-          </div>
-          <a href="#ForgotPass" class='trans-bg' style={{color:'grey'}}>
-            Forgot Password?
-          </a>
-          <br/><br/><br/>
-          <input type='submit' className='btnSign' value='Sign In'></input>
+        <br />
+        <form onSubmit={handleSubmit}>
+          {/* ... existing code ... */}
+          <input type='submit' className='btnSign' value='Sign In' />
         </form>
+        {invalidCredentials && (
+          <p style={{ color: 'red' }}>
+            Invalid credentials. Please check your username and password.
+          </p>
+        )}
         <p className='trans-bg'>
-          Don't have an account? <a href='#SignUp' className='trans-bg'>Sign Up</a>
-        </p> 
+          Don't have an account? <Link to="/SignUpPage">Sign Up</Link>
+        </p>
       </div>
     </div>
   );
-}
+};
 
+export default SignInPage;

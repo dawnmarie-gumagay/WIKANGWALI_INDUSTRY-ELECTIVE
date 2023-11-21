@@ -8,7 +8,7 @@ export default function Signing() {
     <div style={{backgroundColor:'transparent', display: 'flex', justifyContent: 'space-between'}}>
 
       <div className='lp-left'>
-        <Link to="/LandingPage">
+        <Link to="/">
           <button style={{backgroundColor:"#2B6BB0", border:"none", borderRadius:"100px", cursor:'pointer'}}>
             <Icon icon="mingcute:back-fill" color="white" width="50" height="50" style={{ backgroundColor: 'transparent' }}/>
           </button>
