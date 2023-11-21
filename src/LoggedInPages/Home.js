@@ -1,5 +1,8 @@
 import './PageAssets/page-styles.css'
+import { HomeHeader } from './HomeHeader'
 
 export function Home(){
-  return <h1>Home</h1>
+  return(
+    <HomeHeader/>
+  )
 }

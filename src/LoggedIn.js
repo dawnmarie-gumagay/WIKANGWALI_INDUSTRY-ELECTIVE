@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import React, { useState } from 'react';
 import { Icon } from '@iconify/react';
 import CustomizedSwitch from './Assets/CustomizedSwitch';
 import { Route, Routes, Link } from 'react-router-dom';
@@ -10,6 +10,16 @@ import { Settings } from './LoggedInPages/Settings';
 import { LogOutConfirm } from './LoggedInPages/LogOutConfirm';
 
 export default function LoggedIn() {
+  const [showLogOutConfirm, setShowLogOutConfirm] = useState(false);
+
+  const handleLogOutClick = () => {
+    setShowLogOutConfirm(true);
+  };
+
+  const handleCancelClick = () => {
+    setShowLogOutConfirm(false);
+  };
+
   return (
     <div className="logged-in">
       <nav className="nav-btns">
@@ -38,12 +48,19 @@ export default function LoggedIn() {
             <CustomizedSwitch/>
           </div>
         </li>
-        <li><Link to="/ConfirmLogOut" className="btnLogOut">
+        {/*<li><Link to="/ConfirmLogOut" className="btnLogOut">
           <Icon icon="tabler:logout" className='nav-icons' />
           &nbsp;Log Out
-        </Link></li>
+          </Link></li>*/}
+        <li>
+          <button onClick={handleLogOutClick} className="btnLogOut">
+            <Icon icon="tabler:logout" className='nav-icons' />
+            Log Out
+          </button>
+          {showLogOutConfirm && <LogOutConfirm onClose={handleCancelClick} />}
+        </li>
       </ul>
-    </nav>
+      </nav>
 
       <div className='main-container'>
         {/*ROUTING*/}
@@ -52,10 +69,11 @@ export default function LoggedIn() {
           <Route path="/courses" element={<Courses/>}/>
           <Route path="/progress" element={<Progress/>}/>
           <Route path="/settings" element={<Settings/>}/>
-          <Route path="/ConfirmLogOut" element={<LogOutConfirm/>}/>
-      </Routes>
+          {/*<Route path="/ConfirmLogOut" element={<LogOutConfirm/>}/>*/}
+          <Route path="/ConfirmLogOut" element={<LogOutConfirm onClose={handleCancelClick} />} />
+        </Routes>
+        <div id="portal-root"></div>
       </div>
-      
     </div>
   );
 }
