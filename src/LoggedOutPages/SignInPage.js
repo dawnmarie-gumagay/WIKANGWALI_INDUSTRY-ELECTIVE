@@ -1,4 +1,3 @@
-// SignInPage.js
 import React, { useState } from 'react';
 import { Icon } from '@iconify/react';
 import { Link } from 'react-router-dom';
@@ -39,7 +38,14 @@ const SignInPage = ({ onLogin }) => {
 
   return (
     <div style={{ backgroundColor: 'transparent', display: 'flex', justifyContent: 'space-between' }}>
-      {/* ... existing code ... */}
+      <div className='lp-left trans-bg'>
+        <Link to="/Signing">
+          <button style={{ backgroundColor: '#2B6BB0', border: 'none', borderRadius: '100px', cursor: 'pointer' }}>
+            <Icon icon="mingcute:back-fill" color="white" width="50" height="50" style={{ backgroundColor: 'transparent' }} />
+          </button>
+        </Link>
+        <div className='logo-sign' />
+      </div>
       <div className='lp-right' style={{ textAlign: 'center' }}>
         <h1 style={{ fontFamily: 'Bangers', fontSize: '70px', color: '#2B6BB0' }}>
           WELCOME!
@@ -49,7 +55,22 @@ const SignInPage = ({ onLogin }) => {
         </p>
         <br />
         <form onSubmit={handleSubmit}>
-          {/* ... existing code ... */}
+          <label className='lbl-form'>Username</label><br />
+          <div style={{ display: 'flex' }}>
+            <Icon icon="solar:user-outline" className='signing-icon' />
+            <input type='text' className='input-form' value={username} onChange={(e) => setUsername(e.target.value)} />
+          </div>
+
+          <br />
+          <label className='lbl-form'>Password</label><br />
+          <div style={{ display: 'flex' }}>
+            <Icon icon="solar:lock-outline" className='signing-icon' />
+            <input type='password' className='input-form' value={password} onChange={(e) => setPassword(e.target.value)} />
+          </div>
+          <a href="#ForgotPass" style={{ color: 'grey' }}>
+            Forgot Password?
+          </a>
+          <br /><br />
           <input type='submit' className='btnSign' value='Sign In' />
         </form>
         {invalidCredentials && (
