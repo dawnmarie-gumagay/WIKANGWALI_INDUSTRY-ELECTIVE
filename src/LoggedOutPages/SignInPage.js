@@ -30,7 +30,7 @@ const SignInPage = ({ onLogin }) => {
         // Redirect to "/Home" after successful login
         navigate('/Home');
 
-        console.log('Login successful');
+        console.log('Login successful. Welcome ' + username + '!');
       } else if (response.status === 401) {
         // If status is 401, set invalidCredentials to true
         setInvalidCredentials(true);

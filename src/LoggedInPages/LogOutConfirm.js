@@ -1,20 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { useNavigate } from 'react-router-dom';  // Import useNavigate instead of useHistory
-import './PageAssets/page-styles.css';
+import { useNavigate } from 'react-router-dom';
 
-export function LogOutConfirm({ onClose }) {
+function LogOutConfirm({ onClose, onLogout }) {
   const navigate = useNavigate();  // Initialize the useNavigate hook
 
   const handleLogOut = () => {
-    // Perform the log-out action here
+    // Perform the log-out action
     console.log('Logging out...');
+    onLogout(); // Call the onLogout function passed as a prop
 
-    // Redirect to "/Home" after successful login
+    // Redirect to LandingPage after successful logout
     navigate('/');
-    // You can call a function to clear authentication state, redirect, etc.
-    // For now, let's simulate a refresh to the login state
-    window.location.reload();
   };
 
   const portalRoot = document.getElementById('portal-root');
@@ -44,3 +41,5 @@ export function LogOutConfirm({ onClose }) {
     portalRoot
   );
 }
+
+export default LogOutConfirm;
