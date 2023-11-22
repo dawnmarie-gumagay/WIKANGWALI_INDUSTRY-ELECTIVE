@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 export default function SignInPage() {
 
   const[username, setUsername]=useState('')
+  const[fname, setFname]=useState('')
+  const[lname, setLname]=useState('')
   const[email, setEmail]=useState('')
   const[pass, setPass]=useState('')
   const[confirmPass, setConfirmPass]=useState('')
@@ -28,6 +30,8 @@ export default function SignInPage() {
     if (passwordsMatch) {
         const userData = {
             username,
+            fname,
+            lname,
             email,
             password: pass,
         };
@@ -83,6 +87,24 @@ export default function SignInPage() {
             <input type='text' className='input-form' required
               value={username}
               onChange={(e)=>setUsername(e.target.value)}/>
+          </div>
+
+        {/*FIRST NAME*/}
+        <label className='lbl-form'>First Name</label><br/>
+          <div class='trans-bg' style={{display:'flex'}}>
+            <Icon icon="solar:user-outline" className='signing-icon'/>
+            <input type='text' className='input-form' required
+              value={fname}
+              onChange={(e)=>setFname(e.target.value)}/>
+          </div>
+
+        {/*LAST NAME*/}
+        <label className='lbl-form'>Last Name</label><br/>
+          <div class='trans-bg' style={{display:'flex'}}>
+            <Icon icon="solar:user-outline" className='signing-icon'/>
+            <input type='text' className='input-form' required
+              value={lname}
+              onChange={(e)=>setLname(e.target.value)}/>
           </div>
 
           {/*EMAIL*/}
