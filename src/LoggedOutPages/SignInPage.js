@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { Icon } from '@iconify/react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const SignInPage = ({ onLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [invalidCredentials, setInvalidCredentials] = useState(false);
+  
+  // Get the navigate function from useNavigate
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,6 +26,10 @@ const SignInPage = ({ onLogin }) => {
       if (response.ok) {
         // Call the onLogin function to update the parent component's state
         onLogin();
+        
+        // Redirect to "/Home" after successful login
+        navigate('/Home');
+
         console.log('Login successful');
       } else if (response.status === 401) {
         // If status is 401, set invalidCredentials to true

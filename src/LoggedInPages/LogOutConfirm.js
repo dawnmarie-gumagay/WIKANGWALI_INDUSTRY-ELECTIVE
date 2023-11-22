@@ -9,6 +9,9 @@ export function LogOutConfirm({ onClose }) {
   const handleLogOut = () => {
     // Perform the log-out action here
     console.log('Logging out...');
+
+    // Redirect to "/Home" after successful login
+    navigate('/');
     // You can call a function to clear authentication state, redirect, etc.
     // For now, let's simulate a refresh to the login state
     window.location.reload();
