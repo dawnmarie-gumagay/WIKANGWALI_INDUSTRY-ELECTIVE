@@ -1,13 +1,13 @@
 import './App.css';
 import React, { useState } from 'react';
 import { Icon } from '@iconify/react';
-import CustomizedSwitch from './Assets/CustomizedSwitch';
+import CustomizedSwitch from '../Assets/CustomizedSwitch';
 import { Route, Routes, Link } from 'react-router-dom';
-import { Home } from './LoggedInPages/Home';
-import { Courses } from './LoggedInPages/Courses';
-import { Progress } from './LoggedInPages/Progress';
-import { Settings } from './LoggedInPages/Settings';
-import { LogOutConfirm } from './LoggedInPages/LogOutConfirm';
+import { Home } from '../LoggedInPages/Home';
+import { Courses } from '../LoggedInPages/Courses';
+import { Progress } from '../LoggedInPages/Progress';
+import { Settings } from '../LoggedInPages/Settings';
+import { LogOutConfirm } from '../LoggedInPages/LogOutConfirm';
 
 export default function LoggedIn() {
   const [showLogOutConfirm, setShowLogOutConfirm] = useState(false);
