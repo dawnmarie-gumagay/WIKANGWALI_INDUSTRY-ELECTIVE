@@ -1,23 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './PageAssets/page-styles.css';
 import { Icon } from '@iconify/react';
 
 export function Home(){
-
+  const [userData, setUserData] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+        try {
+            const response = await fetch('http://localhost:8080/user/getAllUsers');
+            const data = await response.json();
+            setUserData(data);
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+        }
+    };
+
+    fetchData();
+  }, []); // Empty dependency array ensures the effect runs only once when the component mounts
+
   return(
     <div>
       {/* HEADER */}
       <div className='hh-container'>
         <div className='pfp-icon' />
-        
-        <h1 className='hh-greet'>HI GELU!</h1>
+        {userData && userData.length > 0 && (
+                    <h1 className='hh-greet'>HI {userData[0].fname}!</h1>
+        )}
         <div className='hh-container2'>
           <Icon icon='ion:notifications' width='30px' height='30px' className='hh-icon' />
           <Icon icon='noto:diamond-with-a-dot' width='30px' height='30px' className='hh-icon' />

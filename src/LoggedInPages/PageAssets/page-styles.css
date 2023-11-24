@@ -1,5 +1,5 @@
 /*FOR ALL*/
-h1, div, p, button{
+h1, div, p, button, a, input, label{
   background-color: transparent;
 }
 .align{
@@ -206,4 +206,18 @@ h1, div, p, button{
   margin-top: 20px;
   font-size: 25px;
   flex: 1;
+}
+
+/*SETTINGSSSSS*/
+.settings-page h1{
+  font-family: 'Bangers';
+}
+.lblUpdate{
+  font-family: 'Love Ya Like A Sister';
+}
+.txtUpdate{
+  font-family: 'Inter';
+  padding: 5px;
+  border-radius: 5px;
+  border: 2px solid #BACDD2;
 }

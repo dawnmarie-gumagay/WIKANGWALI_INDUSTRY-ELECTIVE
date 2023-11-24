@@ -26,7 +26,6 @@ const SignInPage = ({ onLogin }) => {
       if (response.ok) {
         // Call the onLogin function to update the parent component's state
         onLogin();
-        
         // Redirect to "/Home" after successful login
         navigate('/Home');
 
