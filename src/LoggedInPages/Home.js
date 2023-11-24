@@ -31,12 +31,18 @@ export function Home(){
       <div className='hh-container'>
         <div className='pfp-icon' />
         {userData && userData.length > 0 && (
-                    <h1 className='hh-greet'>HI {userData[0].fname}!</h1>
+          <h1 className='hh-greet'>HI {userData[0].fname}!</h1>
         )}
         <div className='hh-container2'>
           <Icon icon='ion:notifications' width='30px' height='30px' className='hh-icon' />
           <Icon icon='noto:diamond-with-a-dot' width='30px' height='30px' className='hh-icon' />
-          <p style={{ marginLeft: '15px' }}>Gelu Ursal</p>
+          {userData && userData.length > 0 && (
+            userData.map((user) => (
+              <div key={user.id}>
+                <p style={{ marginLeft: '15px' }}>{user.fname} {user.lname}</p>
+              </div>
+            ))
+          )}
           <div className='dropdown-container'>
             <Icon
               icon='ic:round-arrow-drop-down'
@@ -48,9 +54,9 @@ export function Home(){
             {isDropdownOpen && (
               <div className='dropdown-content'>
                 {/* Your React Router Links go here */}
-                <Link to='/option1'>Option 1</Link>
-                <Link to='/option2'>Option 2</Link>
-                <Link to='/option3'>Option 3</Link>
+                <Link to='/option1'>Your Profile</Link>
+                <Link to='/option2'>Your Achievements</Link>
+                <Link to='/option3'>Your Mom</Link>
               </div>
             )}
           </div>
@@ -58,7 +64,8 @@ export function Home(){
       </div>
       
       <div className='home-contents'>
-        {/* HOME - LESSON */}
+
+        {/* 1.HOME - LESSON */}
         <div className='home-lesson'>
           YOUR CURRENT LESSON
           
@@ -78,7 +85,7 @@ export function Home(){
           </div>
         </div>
         
-        {/* HOME - PROGRESS */}
+        {/* 2.HOME - PROGRESS */}
         <div className='home-progress'>
           RECENT PROGRESS
           <Link to="/Courses" className='hi'>
@@ -93,6 +100,7 @@ export function Home(){
             <Icon icon="icon-park-outline:next" className='hi-back'/>
           </Link>
         </div>
+
       </div>
 
     </div>

@@ -43,9 +43,12 @@ export default function SignInPage() {
                 },
                 body: JSON.stringify(userData),
             });
+
+            const responseData = await response.json();
+
             if (response.ok) {
                 console.log('User registered successfully!');
-                console.log(userData);
+                console.log(responseData); // Log the response data
             } else {
                 console.error('Failed to register user');
             }
