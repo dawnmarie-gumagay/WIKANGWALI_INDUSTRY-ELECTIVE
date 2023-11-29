@@ -1,23 +1,25 @@
 import './PageAssets/page-styles.css';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
-export function Settings() {
+ const Settings = ({ loggedInUsername }) => {
   const [userData, setUserData] = useState(null);
-
+  
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://localhost:8080/user/getAllUsers');
-        const data = await response.json();
-        setUserData(data);
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
+    const fetchUserData = async () => {
+        try {
+            // Fetch the data for the logged-in user based on their username
+            const response = await fetch(`http://localhost:8080/student/getStudentByUsername/${loggedInUsername}`);
+            const data = await response.json();
+            setUserData(data);
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+        }
     };
 
-    fetchData();
-  }, []); // Empty dependency array ensures the effect runs only once when the component mounts
+    fetchUserData();
+  }, [loggedInUsername]);
 
   return (
     <div className='settings-page'>
@@ -40,4 +42,11 @@ export function Settings() {
       )}
     </div>
   );
-}
+};
+
+// Add PropTypes validation for loggedInUsername
+Settings.propTypes = {
+  loggedInUsername: PropTypes.string.isRequired,
+};
+
+export default Settings;

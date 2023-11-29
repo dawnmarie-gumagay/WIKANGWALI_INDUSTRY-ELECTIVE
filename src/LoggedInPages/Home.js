@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './PageAssets/page-styles.css';
 import { Icon } from '@iconify/react';
+import PropTypes from 'prop-types';
 
-export function Home(){
+const Home = ({ loggedInUsername }) => {
   const [userData, setUserData] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -12,37 +13,35 @@ export function Home(){
   };
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchUserData = async () => {
         try {
-            const response = await fetch('http://localhost:8080/user/getAllUsers');
+            // Fetch the data for the logged-in user based on their username
+            const response = await fetch(`http://localhost:8080/student/getStudentByUsername/${loggedInUsername}`);
             const data = await response.json();
+            console.log('Fetched userData:', data); // Log the fetched data
             setUserData(data);
         } catch (error) {
             console.error('Error fetching user data:', error);
         }
     };
 
-    fetchData();
-  }, []); // Empty dependency array ensures the effect runs only once when the component mounts
+    fetchUserData();
+  }, [loggedInUsername]);
 
-  return(
+  console.log('Render userData:', userData); // Log userData on render
+
+  return (
     <div>
       {/* HEADER */}
       <div className='hh-container'>
         <div className='pfp-icon' />
-        {userData && userData.length > 0 && (
-          <h1 className='hh-greet'>HI {userData[0].fname}!</h1>
+        {userData?.fname && (
+          <h1 className='hh-greet'>HI {userData.fname}!</h1>
         )}
         <div className='hh-container2'>
           <Icon icon='ion:notifications' width='30px' height='30px' className='hh-icon' />
           <Icon icon='noto:diamond-with-a-dot' width='30px' height='30px' className='hh-icon' />
-          {userData && userData.length > 0 && (
-            userData.map((user) => (
-              <div key={user.id}>
-                <p style={{ marginLeft: '15px' }}>{user.fname} {user.lname}</p>
-              </div>
-            ))
-          )}
+          <p style={{ marginLeft: '15px' }}>{userData?.fname} {userData?.lname}</p>
           <div className='dropdown-container'>
             <Icon
               icon='ic:round-arrow-drop-down'
@@ -103,6 +102,13 @@ export function Home(){
 
       </div>
 
-    </div>
-  )
-}
+      </div>
+  );
+};
+
+// Add PropTypes validation for loggedInUsername
+Home.propTypes = {
+  loggedInUsername: PropTypes.string.isRequired,
+};
+
+export default Home;

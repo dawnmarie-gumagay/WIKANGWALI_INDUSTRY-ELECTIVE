@@ -3,29 +3,30 @@ import { Icon } from '@iconify/react';
 import CustomizedSwitch from './Assets/CustomizedSwitch';
 import { Route, Routes, Link, useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 import LandingPage from './LoggedOutPages/LandingPage';
 import SignInPage from './LoggedOutPages/SignInPage';
 import SignUpPage from './LoggedOutPages/SignUpPage';
 import Signing from './LoggedOutPages/Signing';
 
-import { Home } from './LoggedInPages/Home';
+import Home from './LoggedInPages/Home'; 
 import { Courses } from './LoggedInPages/Courses';
-import { Progress } from './LoggedInPages/Progress';
-import { Settings } from './LoggedInPages/Settings';
+import Progress from './LoggedInPages/Progress';
+import Settings from './LoggedInPages/Settings';
 import LogOutConfirm from './LoggedInPages/LogOutConfirm';
 
 function App() {
-  const storedIsLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-  const [isLoggedIn, setIsLoggedIn] = useState(storedIsLoggedIn);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userData, setUserData] = useState(null);
   const [showLogOutConfirm, setShowLogOutConfirm] = useState(false);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
-  const handleLogin = () => {
+  const handleLogin = (userData) => {
     setIsLoggedIn(true);
-    localStorage.setItem('isLoggedIn', 'true');
+    setUserData(userData);
+    navigate('/Home');
   };
-
   const handleLogOutClick = () => {
     setShowLogOutConfirm(true);
   };
@@ -35,7 +36,7 @@ function App() {
 
   const handleLogout = () => {
     setIsLoggedIn(false);
-    localStorage.removeItem('isLoggedIn');
+    setUserData(null);
     navigate('/');
   };
 
@@ -53,15 +54,15 @@ function App() {
                 <Icon icon="octicon:home-16" className='nav-icons'/>
                 &nbsp;Home
               </Link></li>
-              <li><Link to="/courses" className="btnNav">
+              <li><Link to="/Courses" className="btnNav">
                 <Icon icon="carbon:course" className='nav-icons' />
                 &nbsp;Courses
               </Link></li>
-              <li><Link to="/progress" className="btnNav">
+              <li><Link to="/Progress" className="btnNav">
                 <Icon icon="material-symbols:progress-activity" className='nav-icons' />
                 &nbsp;Progress
               </Link></li>
-              <li><Link to="/settings" className="btnNav">
+              <li><Link to="/Settings" className="btnNav">
                 <Icon icon="solar:settings-outline" className='nav-icons' />
                 &nbsp;Settings
               </Link></li>
@@ -84,10 +85,10 @@ function App() {
     
         <div className='main-container'>
           <Routes>
-            <Route path="/Home" element={<Home/>}/>
-            <Route path="/courses" element={<Courses/>}/>
-            <Route path="/progress" element={<Progress/>}/>
-            <Route path="/settings" element={<Settings/>}/>
+            <Route path="/Home" element={<Home loggedInUsername={userData} />} />
+            <Route path="/Courses" element={<Courses/>}/>
+            <Route path="/Progress" element={<Progress loggedInUsername={userData} />}/>
+            <Route path="/Settings" element={<Settings loggedInUsername={userData} />}/>
             <Route path="/ConfirmLogOut" element={<LogOutConfirm onClose={handleCancelClick} onLogout={handleLogout} />} />
           </Routes>
           <div id="portal-root"></div>
@@ -106,4 +107,21 @@ function App() {
     </div>
   );
 }
+
+// Add PropTypes for userData
+Home.propTypes = {
+  userData: PropTypes.oneOfType([
+    PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        fname: PropTypes.string.isRequired,
+        lname: PropTypes.string.isRequired,
+        // Add other properties as needed
+      })
+    ),
+    PropTypes.oneOf([null]), // Allow null for initial state
+  ]),
+};
+
+
 export default App;

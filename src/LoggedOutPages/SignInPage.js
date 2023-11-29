@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Icon } from '@iconify/react';
 import { Link, useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const SignInPage = ({ onLogin }) => {
   const [username, setUsername] = useState('');
@@ -14,31 +15,45 @@ const SignInPage = ({ onLogin }) => {
     e.preventDefault();
 
     try {
-      // Assuming your API returns a success status when login is successful
-      const response = await fetch('http://localhost:8080/user/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
+        const response = await fetch('http://localhost:8080/student/login', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, password }),
       });
-
+      
+      const responseData = await response.json();
+      
       if (response.ok) {
-        // Call the onLogin function to update the parent component's state
-        onLogin();
-        // Redirect to "/Home" after successful login
-        navigate('/Home');
-
-        console.log('Login successful. Welcome ' + username + '!');
-      } else if (response.status === 401) {
-        // If status is 401, set invalidCredentials to true
-        setInvalidCredentials(true);
-        console.error('Invalid credentials');
+        // Check the success field in the response
+        if (responseData.success) {
+            // Login successful
+            // Pass the logged-in username to the onLogin function
+            onLogin(username);
+            
+            // Redirect to the admin page if the username is 'admin' and password is 'admin'
+            if (username.toLowerCase() === 'admin' && password === 'admin') {
+                navigate('/AdminPage');
+            } else {
+                // Redirect to the home page for other users
+                navigate('/Home');
+            }
+            console.log('Login successful. Welcome ' + username + '!');
+            alert('Login successful. Welcome ' + username + '!');
+        } else {
+            // Login failed
+            setInvalidCredentials(true);
+            console.error('Login failed:', responseData.message);
+            alert('Login failed:', responseData.message);
+        }
       } else {
-        console.error('Login failed');
+          console.error('Login failed:', responseData.message);
+          alert('Login failed:', responseData.message);
       }
     } catch (error) {
-      console.error('Error during login:', error);
+        console.error('Error during login:', error);
+        alert('Error during login:', error);
     }
   };
 
@@ -90,6 +105,10 @@ const SignInPage = ({ onLogin }) => {
       </div>
     </div>
   );
+};
+
+SignInPage.propTypes = {
+  onLogin: PropTypes.func.isRequired,
 };
 
 export default SignInPage;

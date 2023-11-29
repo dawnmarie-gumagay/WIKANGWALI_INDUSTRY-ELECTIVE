@@ -12,7 +12,6 @@ export default function SignInPage() {
   const[pass, setPass]=useState('')
   const[confirmPass, setConfirmPass]=useState('')
   const [passwordsMatch, setPasswordsMatch] = useState(true); // Added state for validation
-  const[user, setUser] = useState([])
 
   const handlePasswordChange = (e) => {
     const newPassword = e.target.value;
@@ -36,7 +35,7 @@ export default function SignInPage() {
             password: pass,
         };
         try {
-            const response = await fetch('http://localhost:8080/user/insertUser', {
+            const response = await fetch('http://localhost:8080/student/insertStudent', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -49,14 +48,18 @@ export default function SignInPage() {
             if (response.ok) {
                 console.log('User registered successfully!');
                 console.log(responseData); // Log the response data
+                alert('User registered successfully!');
             } else {
                 console.error('Failed to register user');
+                alert('Failed to register user');
             }
         } catch (error) {
             console.error('Error:', error);
+            alert('Error:', error);
         }
     } else {
         console.error('Passwords do not match');
+        alert('Passwords do not match');
     }
   };
 
@@ -85,7 +88,7 @@ export default function SignInPage() {
         <form className='trans-bg' onSubmit={handleSubmit}>
           {/*USERNAME*/}
           <label className='lbl-form'>Username</label><br/>
-          <div class='trans-bg' style={{display:'flex'}}>
+          <div style={{display:'flex'}}>
             <Icon icon="solar:user-outline" className='signing-icon'/>
             <input type='text' className='input-form' required
               value={username}
@@ -94,7 +97,7 @@ export default function SignInPage() {
 
         {/*FIRST NAME*/}
         <label className='lbl-form'>First Name</label><br/>
-          <div class='trans-bg' style={{display:'flex'}}>
+          <div style={{display:'flex'}}>
             <Icon icon="solar:user-outline" className='signing-icon'/>
             <input type='text' className='input-form' required
               value={fname}
@@ -103,7 +106,7 @@ export default function SignInPage() {
 
         {/*LAST NAME*/}
         <label className='lbl-form'>Last Name</label><br/>
-          <div class='trans-bg' style={{display:'flex'}}>
+          <div style={{display:'flex'}}>
             <Icon icon="solar:user-outline" className='signing-icon'/>
             <input type='text' className='input-form' required
               value={lname}
@@ -112,7 +115,7 @@ export default function SignInPage() {
 
           {/*EMAIL*/}
           <label className='lbl-form'>Email</label><br/>
-          <div class='trans-bg' style={{display:'flex'}}>
+          <div style={{display:'flex'}}>
             <Icon icon="ic:outline-email" className='signing-icon'/>
             <input type='email' className='input-form' value={email} required
               onChange={(e)=>setEmail(e.target.value)}/>
