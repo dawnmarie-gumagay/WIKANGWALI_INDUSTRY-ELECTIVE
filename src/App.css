@@ -64,6 +64,14 @@ li{
   border: none;
   margin: 20px;
 }
+.navLogoAdmin{
+  background-image: url(./Assets/navLogoAdmin.png);
+  width: 200px;
+  height: 89px;
+  display: flex;
+  border: none;
+  margin: 20px;
+}
 .nav-icons{
   color: white;
 }

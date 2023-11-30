@@ -11,20 +11,6 @@ export function Courses(){
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-        try {
-            const response = await fetch('http://localhost:8080/user/getAllUsers');
-            const data = await response.json();
-            setUserData(data);
-        } catch (error) {
-            console.error('Error fetching user data:', error);
-        }
-    };
-
-    fetchData();
-  }, []); // Empty dependency array ensures the effect runs only once when the component mounts
-
   return (
     <div>
       {/* HEADER */}

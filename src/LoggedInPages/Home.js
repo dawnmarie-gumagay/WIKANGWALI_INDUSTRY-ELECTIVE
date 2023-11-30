@@ -18,8 +18,8 @@ const Home = ({ loggedInUsername }) => {
             // Fetch the data for the logged-in user based on their username
             const response = await fetch(`http://localhost:8080/student/getStudentByUsername/${loggedInUsername}`);
             const data = await response.json();
-            console.log('Fetched userData:', data); // Log the fetched data
             setUserData(data);
+            console.log('Fetched userData:', data); // Log the fetched data
         } catch (error) {
             console.error('Error fetching user data:', error);
         }
@@ -27,8 +27,6 @@ const Home = ({ loggedInUsername }) => {
 
     fetchUserData();
   }, [loggedInUsername]);
-
-  console.log('Render userData:', userData); // Log userData on render
 
   return (
     <div>

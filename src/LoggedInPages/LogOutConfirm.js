@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
 function LogOutConfirm({ onClose, onLogout }) {
@@ -41,5 +42,11 @@ function LogOutConfirm({ onClose, onLogout }) {
     portalRoot
   );
 }
+
+// Prop types validation
+LogOutConfirm.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  onLogout: PropTypes.func.isRequired,
+};
 
 export default LogOutConfirm;

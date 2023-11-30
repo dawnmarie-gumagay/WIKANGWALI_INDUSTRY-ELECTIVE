@@ -34,7 +34,7 @@ const SignInPage = ({ onLogin }) => {
             
             // Redirect to the admin page if the username is 'admin' and password is 'admin'
             if (username.toLowerCase() === 'admin' && password === 'admin') {
-                navigate('/AdminPage');
+                navigate('/AdminHome');
             } else {
                 // Redirect to the home page for other users
                 navigate('/Home');
@@ -59,7 +59,7 @@ const SignInPage = ({ onLogin }) => {
 
   return (
     <div style={{ backgroundColor: 'transparent', display: 'flex', justifyContent: 'space-between' }}>
-      <div className='lp-left trans-bg'>
+      <div className='lp-left'>
         <Link to="/Signing">
           <button style={{ backgroundColor: '#2B6BB0', border: 'none', borderRadius: '100px', cursor: 'pointer' }}>
             <Icon icon="mingcute:back-fill" color="white" width="50" height="50" style={{ backgroundColor: 'transparent' }} />
@@ -99,7 +99,7 @@ const SignInPage = ({ onLogin }) => {
             Invalid credentials. Please check your username and password.
           </p>
         )}
-        <p className='trans-bg'>
+        <p>
           Don't have an account? <Link to="/SignUpPage">Sign Up</Link>
         </p>
       </div>
