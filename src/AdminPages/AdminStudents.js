@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './PageAssets/page-styles.css';
+import AdminADDStudent from './AdminADDStudent'; // Assuming you have a separate component for the form
 
 export function AdminStudents() {
   const [students, setStudents] = useState([]);
+  const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
     const fetchStudents = async () => {
@@ -18,6 +20,14 @@ export function AdminStudents() {
     fetchStudents();
   }, []);
 
+  const handleAddStudentClick = () => {
+    setShowForm(true);
+  };
+
+  const handleFormClose = () => {
+    setShowForm(false);
+  };
+
   return (
     <div>
       {/* HEADER */}
@@ -26,6 +36,8 @@ export function AdminStudents() {
       </div>
 
       <div className='aHome-container'>
+        <button onClick={handleAddStudentClick}>Add New Student</button>
+
         {/* Display students in a table */}
         <table>
           <thead>
@@ -34,7 +46,12 @@ export function AdminStudents() {
               <th>Username</th>
               <th>First Name</th>
               <th>Last Name</th>
+              <th>Email</th>
+              <th>Password</th>
+              <th>admin</th>
+              <th>isDeleted</th>
               {/* Add more columns as needed */}
+              <th> </th>
             </tr>
           </thead>
           <tbody>
@@ -46,14 +63,22 @@ export function AdminStudents() {
                 <td>{student.lname}</td>
                 <td>{student.email}</td>
                 <td>{student.password}</td>
-                <td>{student.isAdmin}</td>
+                <td>{String(student.admin)}</td>
                 <td>{student.isDeleted}</td>
                 {/* Add more columns as needed */}
+                <td>
+                  <button>Update</button>
+                  <button>Delete</button>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
+
+        {/* Display the form conditionally */}
+        {showForm && <AdminADDStudent onClose={handleFormClose} />}
       </div>
     </div>
   );
 }
+
