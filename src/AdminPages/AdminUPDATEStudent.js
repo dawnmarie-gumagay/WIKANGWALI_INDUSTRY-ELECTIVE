@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-const AdminADDStudent = ({ onAddStudent, onClose }) => {
-  const [formData, setFormData] = useState({
+const AdminUPDATEStudent = ({ onUpdateStudent, onClose, initialData }) => {
+  const [formData, setFormData] = useState(initialData || {
     username: '',
     fname: '',
     lname: '',
     password: '',
     email: '',
-    admin: false, // Assuming the default value for admin is false
+    admin: false,
   });
+
+  useEffect(() => {
+    setFormData(initialData);
+  }, [initialData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,8 +27,8 @@ const AdminADDStudent = ({ onAddStudent, onClose }) => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:8080/student/insertStudent', {
-        method: 'POST',
+      const response = await fetch(`http://localhost:8080/student/updateStudent?username=${formData.username}`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -32,14 +36,13 @@ const AdminADDStudent = ({ onAddStudent, onClose }) => {
       });
 
       if (response.ok) {
-        const newStudent = await response.json();
-        // Pass the new student data to the parent component
-        onAddStudent(newStudent);
+        const updatedStudent = await response.json();
+        // Pass the updated student data to the parent component
+        onUpdateStudent(updatedStudent);
         // Close the form
         onClose();
         // Reset the form inputs
         setFormData({
-          username: '',
           fname: '',
           lname: '',
           password: '',
@@ -47,13 +50,13 @@ const AdminADDStudent = ({ onAddStudent, onClose }) => {
         });
 
         // Show an alert message
-        window.alert('New student added successfully!');
+        window.alert('Student updated successfully!');
       } else {
-        console.error('Failed to add new student:', response.statusText);
+        console.error('Failed to update student:', response.statusText);
         // Handle the error (e.g., display an error message)
       }
     } catch (error) {
-      console.error('Error adding new student:', error);
+      console.error('Error updating student:', error);
       // Handle the error (e.g., display an error message)
     }
   };
@@ -63,25 +66,25 @@ const AdminADDStudent = ({ onAddStudent, onClose }) => {
       <div className="modal-container">
         <button onClick={onClose}>Close</button>
         {/* Pop-up form */}
-        <h1>ADD NEW STUDENT</h1>
+        <h1>UPDATE STUDENT</h1>
         <form onSubmit={handleSubmit}>
-          <label> Username:</label>
-          <input type="text" name="username" value={formData.username} onChange={handleChange} required />
-          <br/>
-          <label>First Name: </label>
+          <label>Username:</label>
+          <input type="text" name="username" value={formData.username} readOnly />
+          <br />
+          <label>First Name:</label>
           <input type="text" name="fname" value={formData.fname} onChange={handleChange} required />
-          <br/>
+          <br />
           <label>Last Name:</label>
           <input type="text" name="lname" value={formData.lname} onChange={handleChange} required />
-          <br/>
+          <br />
           <label>Password:</label>
           <input type="password" name="password" value={formData.password} onChange={handleChange} required />
-          <br/>
+          <br />
           <label>Email:</label>
           <input type="email" name="email" value={formData.email} onChange={handleChange} required />
-          <br/>
-          <br/><br/>
-          <button type="submit">Add Student</button>
+          <br />
+          <br /><br />
+          <button type="submit">Update Student</button>
         </form>
       </div>
     </div>
@@ -89,9 +92,10 @@ const AdminADDStudent = ({ onAddStudent, onClose }) => {
 };
 
 // Add PropTypes validation
-AdminADDStudent.propTypes = {
-  onAddStudent: PropTypes.func.isRequired,
+AdminUPDATEStudent.propTypes = {
+  onUpdateStudent: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
+  initialData: PropTypes.object,
 };
 
-export default AdminADDStudent;
+export default AdminUPDATEStudent;

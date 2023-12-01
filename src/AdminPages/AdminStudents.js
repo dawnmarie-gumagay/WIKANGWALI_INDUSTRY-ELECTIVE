@@ -1,31 +1,56 @@
 import React, { useState, useEffect } from 'react';
 import './PageAssets/page-styles.css';
-import AdminADDStudent from './AdminADDStudent'; // Assuming you have a separate component for the form
+import AdminADDStudent from './AdminADDStudent';
+import AdminUPDATEStudent from './AdminUPDATEStudent';
+import AdminDELETEStudent from './AdminDELETEStudent';
 
 export function AdminStudents() {
   const [students, setStudents] = useState([]);
-  const [showForm, setShowForm] = useState(false);
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [showUpdateForm, setShowUpdateForm] = useState(false);
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+  const [selectedStudent, setSelectedStudent] = useState(null);
 
   useEffect(() => {
-    const fetchStudents = async () => {
-      try {
-        const response = await fetch('http://localhost:8080/student/getAllStudents');
-        const data = await response.json();
-        setStudents(data);
-      } catch (error) {
-        console.error('Error fetching students:', error);
-      }
-    };
-
     fetchStudents();
   }, []);
 
+  const fetchStudents = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/student/getAllStudents');
+      const data = await response.json();
+      setStudents(data);
+    } catch (error) {
+      console.error('Error fetching students:', error);
+    }
+  };
+
+  const handleAddStudent = (newStudent) => {
+    setStudents((prevStudents) => [...prevStudents, newStudent]);
+  };
+
   const handleAddStudentClick = () => {
-    setShowForm(true);
+    setShowAddForm(true);
+  };
+
+  const handleUpdateStudentClick = (student) => {
+    setSelectedStudent(student);
+    setShowUpdateForm(true);
+  };
+
+  const handleDeleteClick = (student) => {
+    setSelectedStudent(student);
+    setShowDeleteConfirmation(true);
   };
 
   const handleFormClose = () => {
-    setShowForm(false);
+    setShowAddForm(false);
+    setShowUpdateForm(false);
+    setShowDeleteConfirmation(false);
+    setSelectedStudent(null);
+
+    // Refresh the form by fetching the updated data
+    fetchStudents();
   };
 
   return (
@@ -67,18 +92,21 @@ export function AdminStudents() {
                 <td>{student.isDeleted}</td>
                 {/* Add more columns as needed */}
                 <td>
-                  <button>Update</button>
-                  <button>Delete</button>
+                  <button onClick={() => handleUpdateStudentClick(student)}>Update</button>
+                  <button onClick={() => handleDeleteClick(student)}>Delete</button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
 
-        {/* Display the form conditionally */}
-        {showForm && <AdminADDStudent onClose={handleFormClose} />}
+        {/* Display the forms conditionally */}
+        {showAddForm && <AdminADDStudent onAddStudent={handleAddStudent} onClose={handleFormClose} />}
+        {showUpdateForm && <AdminUPDATEStudent onUpdateStudent={handleAddStudent} onClose={handleFormClose} initialData={selectedStudent} />}
+        {showDeleteConfirmation && (
+          <AdminDELETEStudent onClose={handleFormClose} onDelete={handleAddStudent} selectedStudent={selectedStudent} />
+        )}
       </div>
     </div>
   );
 }
-
