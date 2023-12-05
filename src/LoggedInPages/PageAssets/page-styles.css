@@ -1,6 +1,7 @@
 /*FOR ALL*/
-h1, div, p, button, a, input, label, table, td, tr, tbody{
+h1, div, p, button, a, input, label, table, td, tr, tbody, ul, strong{
   background-color: transparent;
+  letter-spacing: 1px;
 }
 .align{
   display: flex;
@@ -27,7 +28,6 @@ h1, div, p, button, a, input, label, table, td, tr, tbody{
   align-items: center;
   text-align: center;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
 }
 .logout-msg{
@@ -260,4 +260,93 @@ h1, div, p, button, a, input, label, table, td, tr, tbody{
   padding: 5px;
   padding-right: 20px;
   font-family: 'Love Ya Like A Sister';
+}
+
+.indiv-achieve {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.indiv-achieve li {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-top: 10px;
+  margin-right: 10px;
+  padding: 15px;
+  width: 200px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.indiv-achieve li strong {
+  display: block;
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.indiv-achieve li p {
+  margin: 0;
+  font-size: 0.9em;
+}
+
+.achievements {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px; /* Adjust the gap between cards as needed */
+}
+
+.achievement-card {
+  margin-top: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  width: 163px; /* Adjust the width of each card as needed */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.achievement-card strong {
+  font-size: 20px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.achievement-card p {
+  font-size: 13px;
+  color: #555;
+  font-family: 'Love Ya Like A Sister';
+  text-align: center;
+}
+
+.progress-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.progress-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 10px;
+  width: 200px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.progress-bar {
+  background-color: #3498db;
+  height: 10px;
+  border-radius: 5px;
+  margin: 8px 0;
+}
+
+/* Add styles for different progress bar colors based on completion status */
+.progress-bar.completed {
+  background-color: #2ecc71;
+}
+
+.progress-bar.incomplete {
+  background-color: #e74c3c;
 }

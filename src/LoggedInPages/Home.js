@@ -33,6 +33,7 @@ const Home = ({ loggedInUsername }) => {
       {/* HEADER */}
       <div className='hh-container'>
         <div className='pfp-icon' />
+        <Icon icon="lucide:user" color="white" width="50" height="50" className='hh-icon'/>
         {userData?.fname && (
           <h1 className='hh-greet'>HI {userData.fname}!</h1>
         )}
@@ -51,8 +52,8 @@ const Home = ({ loggedInUsername }) => {
             {isDropdownOpen && (
               <div className='dropdown-content'>
                 {/* Your React Router Links go here */}
-                <Link to='/option1'>Your Profile</Link>
-                <Link to='/option2'>Your Achievements</Link>
+                <Link to='/Settings'>Edit Profile</Link>
+                <Link to='/Achievements'>Your Achievements</Link>
                 <Link to='/option3'>Your Mom</Link>
               </div>
             )}
@@ -89,17 +90,39 @@ const Home = ({ loggedInUsername }) => {
             <Icon icon="icon-park-outline:next" className='hi-back'/>
           </Link>
           <br/>
-          Aralin 1
-          {/* INSERT PROGRESS BAR */}
+          {/* DISPLAY RECENT PROGRESS */}
+          {userData?.progressTrackers && (
+            <div className='progress-container'>
+              {userData.progressTrackers.slice(0, 1).map((tracker) => (
+                <div key={tracker.progressTrackerId} className='progress-card'>
+                  <strong>{tracker.actName}</strong>
+                  <p className='progress-bar'>{tracker.progPerc}</p>
+                  <p style={{ color: tracker.completed ? 'green' : 'red' }}>
+                    Completion: {tracker.completed ? 'Completed' : 'Incomplete'}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
+
           <hr/>
           YOUR ACHIEVEMENTS
           <Link to="/Achievements" className='hi'>
             <Icon icon="icon-park-outline:next" className='hi-back'/>
           </Link>
+          {/* YOUR ACHIEVEMENTS */}
+          {userData?.achievements && (
+            <div className='achievements'>
+              {userData.achievements.slice(0, 2).map((achievement) => (
+                <div key={achievement.achievement_id} className='achievement-card'>
+                  <strong>{achievement.achievement_name}</strong>
+                  <p>{achievement.achievement_desc}</p>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
-
       </div>
-
       </div>
   );
 };

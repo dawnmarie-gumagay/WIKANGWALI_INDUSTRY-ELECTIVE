@@ -11,10 +11,12 @@ import SignUpPage from './LoggedOutPages/SignUpPage';
 import Signing from './LoggedOutPages/Signing';
 
 import Home from './LoggedInPages/Home'; 
-import { Courses } from './LoggedInPages/Courses';
+import Courses from './LoggedInPages/Courses';
 import Progress from './LoggedInPages/Progress';
 import Settings from './LoggedInPages/Settings';
 import LogOutConfirm from './LoggedInPages/LogOutConfirm';
+
+import Achievements from './LoggedInPages/Achievements';
 
 import AdminHome from './AdminPages/AdminHome';
 import { AdminStudents } from './AdminPages/AdminStudents';
@@ -181,9 +183,11 @@ function App() {
                 // Render regular user routes
                 <>
                   <Route path="/Home" element={<Home loggedInUsername={userData} />} />
-                  <Route path="/Courses" element={<Courses/>}/>
+                  <Route path="/Courses" element={<Courses loggedInUsername={userData}/>}/>
                   <Route path="/Progress" element={<Progress loggedInUsername={userData} />}/>
                   <Route path="/Settings" element={<Settings loggedInUsername={userData} />}/>
+
+                  <Route path="/Achievements" element={<Achievements loggedInUsername={userData} />}/>
                 </>
               )}
               <Route path="/ConfirmLogOut" element={<LogOutConfirm onClose={handleCancelClick} onLogout={handleLogout} />} />

@@ -1,11 +1,12 @@
-import './PageAssets/page-styles.css'
-import { Icon } from '@iconify/react'
+import './PageAssets/page-styles.css';
+import { Icon } from '@iconify/react';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const Progress = ({ loggedInUsername }) => {
   const [userData, setUserData] = useState(null);
+  const [progressTrackers, setProgressTrackers] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -14,17 +15,27 @@ const Progress = ({ loggedInUsername }) => {
 
   useEffect(() => {
     const fetchUserData = async () => {
-        try {
-            // Fetch the data for the logged-in user based on their username
-            const response = await fetch(`http://localhost:8080/student/getStudentByUsername/${loggedInUsername}`);
-            const data = await response.json();
-            setUserData(data);
-        } catch (error) {
-            console.error('Error fetching user data:', error);
-        }
+      try {
+        const response = await fetch(`http://localhost:8080/student/getStudentByUsername/${loggedInUsername}`);
+        const data = await response.json();
+        setUserData(data);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    const fetchProgressTrackers = async () => {
+      try {
+        const response = await fetch(`http://localhost:8080/student/${loggedInUsername}/ViewStudentProgressT`);
+        const data = await response.json();
+        setProgressTrackers(data);
+      } catch (error) {
+        console.error('Error fetching progress trackers:', error);
+      }
     };
 
     fetchUserData();
+    fetchProgressTrackers();
   }, [loggedInUsername]);
 
   return (
@@ -47,17 +58,31 @@ const Progress = ({ loggedInUsername }) => {
             />
             {isDropdownOpen && (
               <div className='dropdown-content'>
-                {/* Your React Router Links go here */}
-                <Link to='/option1'>Your Profile</Link>
-                <Link to='/option2'>Your Achievements</Link>
+                <Link to='/Settings'>Edit Profile</Link>
+                <Link to='/Achievements'>Your Achievements</Link>
                 <Link to='/option3'>Your Mom</Link>
               </div>
             )}
           </div>
         </div>
       </div>
+
+      {/* DISPLAY PROGRESS TRACKERS */}
+      <div className='progress-container'>
+        {progressTrackers.map((tracker) => (
+          <div className='progress-card' key={tracker.progressTrackerId}>
+            <strong>{tracker.actName}</strong>
+            <div className={`progress-bar ${tracker.completed ? 'completed' : 'incomplete'}`} style={{ width: `${tracker.progPerc}%` }}></div>
+            <p style={{ color: tracker.completed ? 'green' : 'red' }}>
+              {tracker.completed ? 'Completed' : 'Incomplete'}
+            </p>
+            {/* Add more details or styles as needed */}
+          </div>
+        ))}
+      </div>
+
     </div>
-  )
+  );
 };
 
 // Add PropTypes validation for loggedInUsername

@@ -131,8 +131,8 @@ const Settings = ({ loggedInUsername }) => {
             />
             {isDropdownOpen && (
               <div className='dropdown-content'>
-                <Link to='/option1'>Your Profile</Link>
-                <Link to='/option2'>Your Achievements</Link>
+                <Link to='/Settings'>Edit Profile</Link>
+                <Link to='/Achievements'>Your Achievements</Link>
                 <Link to='/option3'>Your Mom</Link>
               </div>
             )}
