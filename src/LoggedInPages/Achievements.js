@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 const Achievements = ({ loggedInUsername }) => {
   const [userData, setUserData] = useState(null);
   const [achievements, setAchievements] = useState([]);
+  const [points, setPoints] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -25,6 +26,12 @@ const Achievements = ({ loggedInUsername }) => {
         const achievementsResponse = await fetch(`http://localhost:8080/student/${loggedInUsername}/ViewStudentAchievements`);
         const achievementsData = await achievementsResponse.json();
         setAchievements(achievementsData);
+
+        // Fetch points data
+        const pointsResponse = await fetch(`http://localhost:8080/student/${loggedInUsername}/ViewStudentPoints`);
+        const pointsData = await pointsResponse.json();
+        setPoints(pointsData);
+
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
@@ -64,6 +71,17 @@ const Achievements = ({ loggedInUsername }) => {
       </div>
 
       {/* Display Achievements */}
+      <div>
+        <ul className='indiv-point'>
+          {points.map((point) => (
+              <li key={point.point_id}>
+                <strong>{point.point_name}</strong>
+                <br/>
+                <p>{point.point_num}</p>
+              </li>
+            ))}
+        </ul>
+      </div>
       <div>
         <ul className='indiv-achieve'>
           {achievements.map((achievement) => (

@@ -111,12 +111,12 @@ const Home = ({ loggedInUsername }) => {
             <Icon icon="icon-park-outline:next" className='hi-back'/>
           </Link>
           {/* YOUR ACHIEVEMENTS */}
-          {userData?.achievements && (
+          {userData?.points && (
             <div className='achievements'>
-              {userData.achievements.slice(0, 2).map((achievement) => (
-                <div key={achievement.achievement_id} className='achievement-card'>
-                  <strong>{achievement.achievement_name}</strong>
-                  <p>{achievement.achievement_desc}</p>
+              {userData.points.slice(0, 2).map((point) => (
+                <div key={point.point_id} className='point-card'>
+                  <strong>{point.point_name}</strong>
+                  <p>{point.point_num}</p>
                 </div>
               ))}
             </div>

@@ -20,6 +20,7 @@ import Achievements from './LoggedInPages/Achievements';
 
 import AdminHome from './AdminPages/AdminHome';
 import { AdminStudents } from './AdminPages/AdminStudents';
+import { AdminAchievements } from './AdminPages/AdminAchievements';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -178,6 +179,7 @@ function App() {
                 <>
                   <Route path="/AdminHome" element={<AdminHome loggedInUsername={userData}/>}/>
                   <Route path="/AdminStudents" element={<AdminStudents loggedInUsername={userData}/>}/>
+                  <Route path="/AdminAchievements" element={<AdminAchievements loggedInUsername={userData}/>}/>
                 </>
               ) : (
                 // Render regular user routes

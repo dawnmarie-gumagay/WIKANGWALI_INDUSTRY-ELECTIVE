@@ -87,6 +87,7 @@ const Settings = ({ loggedInUsername }) => {
         body: JSON.stringify({
           oldPassword: password, // Use the correct state variable for old password
           newPassword: newPassword,
+          confirmPassword: confirmPassword,
         }),
       });
   

@@ -57,7 +57,7 @@ export function AdminStudents() {
     <div>
       {/* HEADER */}
       <div className='hh-container'>
-        <h1 className='hh-greet'>WELCOME ADMIN!</h1>
+        <h1 className='hh-greet'>Students Dashboard</h1>
       </div>
 
       <div className='aHome-container'>
