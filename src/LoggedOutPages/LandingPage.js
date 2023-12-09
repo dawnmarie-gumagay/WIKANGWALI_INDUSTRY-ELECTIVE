@@ -24,8 +24,11 @@ export default function LandingPage() {
         <p style={{textAlign:'right'}}>
           <Link to="/SignInPage">SIGN IN</Link>
           &nbsp;|&nbsp;
-          <a href="#ContactUs" style={{backgroundColor:'transparent', color: 'black', textDecoration:'none'}}>CONTACT US</a>
+          <Link to="/ContactUsPage">CONTACT US</Link>
+          &nbsp;|&nbsp;
+          <Link to="/AboutUsPage">ABOUT US</Link>
         </p>
+        <br/>
         <div className='logo-landing'/>
       </div>
     </div>

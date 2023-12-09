@@ -63,7 +63,7 @@ const Achievements = ({ loggedInUsername }) => {
                 {/* Your React Router Links go here */}
                 <Link to='/option1'>Your Profile</Link>
                 <Link to='/option2'>Your Achievements</Link>
-                <Link to='/option3'>Your Mom</Link>
+                <Link to='/Parent'>Your Parent</Link>
               </div>
             )}
           </div>

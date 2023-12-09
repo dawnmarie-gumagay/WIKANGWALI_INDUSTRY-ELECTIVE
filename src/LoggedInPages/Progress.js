@@ -60,7 +60,7 @@ const Progress = ({ loggedInUsername }) => {
               <div className='dropdown-content'>
                 <Link to='/Settings'>Edit Profile</Link>
                 <Link to='/Achievements'>Your Achievements</Link>
-                <Link to='/option3'>Your Mom</Link>
+                <Link to='/Parent'>Your Parent</Link>
               </div>
             )}
           </div>

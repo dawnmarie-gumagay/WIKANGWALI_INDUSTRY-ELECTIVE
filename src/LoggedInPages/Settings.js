@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Icon } from '@iconify/react';
+import UpdatePopup from './UpdatePopup';
 
 const Settings = ({ loggedInUsername }) => {
   const [userData, setUserData] = useState(null);
@@ -13,6 +14,8 @@ const Settings = ({ loggedInUsername }) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isEditingProfile, setIsEditingProfile] = useState(true);
+  const [showUpdatePopup, setShowUpdatePopup] = useState(false);
+
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -53,13 +56,14 @@ const Settings = ({ loggedInUsername }) => {
 
       if (response.ok) {
         console.log('Student updated successfully');
-        alert('Student updated successfully');
         setUserData({
           ...userData,
           fname: firstName,
           lname: lastName,
           email: email,
         });
+        setShowUpdatePopup(true); // Set the state to show the pop-up
+
       } else {
         console.error('Failed to update student');
         alert('Failed to update student');
@@ -93,11 +97,11 @@ const Settings = ({ loggedInUsername }) => {
   
       if (response.ok) {
         console.log('Password updated successfully');
-        alert('Password updated successfully');
         // Clear the password fields after a successful update
         setPassword('');
         setNewPassword('');
         setConfirmPassword('');
+        setShowUpdatePopup(true); // Set the state to show the pop-up
       } else {
         console.error('Failed to update password');
         alert('Failed to update password');
@@ -134,7 +138,7 @@ const Settings = ({ loggedInUsername }) => {
               <div className='dropdown-content'>
                 <Link to='/Settings'>Edit Profile</Link>
                 <Link to='/Achievements'>Your Achievements</Link>
-                <Link to='/option3'>Your Mom</Link>
+                <Link to='/Parent'>Your Parent</Link>
               </div>
             )}
           </div>
@@ -171,6 +175,8 @@ const Settings = ({ loggedInUsername }) => {
       <br />
       <hr />
       <br />
+
+      {showUpdatePopup && <UpdatePopup onClose={() => setShowUpdatePopup(false)} />} {/* Render the pop-up component */}
 
       {isEditingProfile ? (
         <form className='updateProfile' onSubmit={handleUpdate}>

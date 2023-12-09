@@ -54,7 +54,7 @@ const Home = ({ loggedInUsername }) => {
                 {/* Your React Router Links go here */}
                 <Link to='/Settings'>Edit Profile</Link>
                 <Link to='/Achievements'>Your Achievements</Link>
-                <Link to='/option3'>Your Mom</Link>
+                <Link to='/Parent'>Your Parent</Link>
               </div>
             )}
           </div>

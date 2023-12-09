@@ -1,10 +1,10 @@
-/*OVERALLS*/
 *{
   background-color: #38b7fe;
   margin: 0;
   padding: 0;
+  border: none;
 }
-div, p, a, li, Link, .nav-icons{
+div, p, a, li, Link, .nav-icons, h1, h2, h3{
   background-color: transparent;
   text-decoration: none;
 }
@@ -36,6 +36,7 @@ li{
 .btnNav:hover{
   background-color: #0745a3;
   cursor: pointer;
+  color: white;
 }
 .btnLogOut{
   border: #0745a3 1px solid;
@@ -72,6 +73,16 @@ li{
   border: none;
   margin: 20px;
 }
+.navLogoParent{
+  background-image: url(./Assets/navLogoParent.png);
+  width: 200px;
+  height: 89px;
+  display: flex;
+  border: none;
+  margin: 20px;
+}
+
+
 .nav-icons{
   color: white;
 }
@@ -98,7 +109,7 @@ li{
 
 /*LOGGED-OUT MAIN CONTAINER ROUTING CHANGE SCREEN*/
 .loggedout-container{
-  background: white;
+  background-image: linear-gradient(to left, white, #CBEDFF);
   border-radius: 20px;
   border: none;
   width: 1000px;
@@ -165,4 +176,79 @@ li{
   width: 30px; 
   height: 30px;
   background-color:transparent;
+}
+
+.au-logo{
+  background-image: url(./LoggedOutPages/LoggedOutAssets/navLogo.png);
+  height: 89px;
+  width: 200px;
+}
+
+.about-div{
+  margin-top: 20px;
+  width: 330px;
+  display: flex;
+  justify-items: center;
+}
+
+.img-mem1{
+  background-image: url(./LoggedOutPages/LoggedOutAssets/mem1.png);
+  height: 300px;
+  width: 222px;
+}
+
+.img-mem2{
+  background-image: url(./LoggedOutPages/LoggedOutAssets/mem2.png);
+  height: 300px;
+  width: 222px;
+}
+
+.img-mem3{
+  background-image: url(./LoggedOutPages/LoggedOutAssets/mem3.png);
+  height: 300px;
+  width: 222px;
+}
+
+.img-mem4{
+  background-image: url(./LoggedOutPages/LoggedOutAssets/mem4.png);
+  height: 300px;
+  width: 222px;
+}
+
+.lp-right{
+  margin-left: 10px;
+}
+
+.circle-icon {
+  background-color: #3BB8FE;
+  width: 70px;
+  height: 70px;
+  margin-right: 10px;
+  border-radius: 50%; /* Set border-radius to 50% to create a circular shape */
+  display: flex; /* Make the container a flex container */
+  align-items: center; /* Center items vertically */
+  justify-content: center; /* Center items horizontally */
+}
+
+.about-icon{
+  width: 30px;
+  height: 30px;
+  color: white;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.about-arrow{
+  width: 30px;
+  height: 30px;
+  color: #2C5F7C;
+  background-color: transparent;
+}
+
+.about-arrow:hover{
+  color: #3BB8FE;
+}
+
+.about-arrow:disabled{
+  color: #7193a7;
 }

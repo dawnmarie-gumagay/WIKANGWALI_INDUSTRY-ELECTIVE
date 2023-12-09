@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const Courses = ({ loggedInUsername }) => {
+const Parent = ({ loggedInUsername }) => {
   const [userData, setUserData] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -32,7 +32,7 @@ const Courses = ({ loggedInUsername }) => {
       {/* HEADER */}
       <div className='hh-container'>
         <Icon icon="material-symbols:progress-activity" color="white" width="50" height="50" className='hh-icon'/>
-        <h1 className='hh-greet'>COURSES</h1>
+        <h1 className='hh-greet'>PARENT</h1>
         <div className='hh-container2'>
           <Icon icon='ion:notifications' width='30px' height='30px' className='hh-icon' />
           <Icon icon='noto:diamond-with-a-dot' width='30px' height='30px' className='hh-icon' />
@@ -56,13 +56,20 @@ const Courses = ({ loggedInUsername }) => {
           </div>
         </div>
       </div>
+
+      <div>
+        <ul>
+          <li>Name: Hei</li>
+        </ul>
+      </div>
+
     </div>
   )
 };
 
-// Add PropTypes validation for loggedInUsername
-Courses.propTypes = {
+// Add PropTypes validation for loggedInUsername 
+Parent.propTypes = {
   loggedInUsername: PropTypes.string.isRequired,
 };
 
-export default Courses;
+export default Parent;

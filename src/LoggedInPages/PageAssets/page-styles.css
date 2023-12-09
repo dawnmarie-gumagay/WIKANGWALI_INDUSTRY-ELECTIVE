@@ -114,7 +114,6 @@ h1, div, p, button, a, input, label, table, td, tr, tbody, ul, strong{
   align-items: center;
   float: right;
   padding: 10px;
-  width: 200px;
   justify-content:center;
 }
 .hh-icon{

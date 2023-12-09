@@ -56,11 +56,16 @@ const Courses = ({ loggedInUsername }) => {
           </div>
         </div>
       </div>
+
+      <div>
+        {/* PUT SHET HERE */}
+      </div>
+
     </div>
   )
 };
 
-// Add PropTypes validation for loggedInUsername
+// Add PropTypes validation for loggedInUsername 
 Courses.propTypes = {
   loggedInUsername: PropTypes.string.isRequired,
 };
