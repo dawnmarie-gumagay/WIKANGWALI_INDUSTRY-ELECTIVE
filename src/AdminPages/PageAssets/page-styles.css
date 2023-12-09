@@ -118,7 +118,6 @@ button{
   align-items: center;
   float: right;
   padding: 10px;
-  width: 200px;
   justify-content:center;
 }
 .hh-icon{
@@ -132,7 +131,7 @@ button{
   display: none;
   position: absolute;
   top: 100%;
-  right: -15px;
+  right: 5px;
   background-color: #fff; /* Set your desired background color */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add box shadow for a subtle effect */
   z-index: 1; /* Set a higher z-index to make sure it appears on top */

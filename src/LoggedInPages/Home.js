@@ -110,19 +110,33 @@ const Home = ({ loggedInUsername }) => {
           <Link to="/Achievements" className='hi'>
             <Icon icon="icon-park-outline:next" className='hi-back'/>
           </Link>
-          {/* YOUR ACHIEVEMENTS */}
-          {userData?.points && (
-            <div className='achievements'>
-              {userData.points.slice(0, 2).map((point) => (
-                <div key={point.point_id} className='point-card'>
-                  <strong>{point.point_name}</strong>
-                  <p>{point.point_num}</p>
-                </div>
-              ))}
+
+          {/* YOUR POINTS */}
+          <div className='pt-container'>
+            <div className='stars'>
+              <h3>Stars</h3>
+              <div className='stars-icon'/>
+              {userData?.ptStar ? (
+                <h4>{userData.ptStar}</h4>
+              ) : (
+                <p>0</p>
+              )}
             </div>
-          )}
+
+            <div className='dias'>
+              <h3>Diamonds</h3>
+              <div className='dias-icon'/>
+              {userData?.ptDia ? (
+                <h4>{userData.ptDia}</h4>
+              ) : (
+                <p>0</p>
+              )}
+            </div>
+          </div>
+
+          
         </div>
-      </div>
+        </div>
       </div>
   );
 };

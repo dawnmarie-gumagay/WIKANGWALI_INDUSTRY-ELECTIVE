@@ -12,12 +12,29 @@ export default function SignInPage() {
   const[pass, setPass]=useState('')
   const[confirmPass, setConfirmPass]=useState('')
   const [passwordsMatch, setPasswordsMatch] = useState(true); // Added state for validation
+  const[passwordIsValid, setPasswordIsValid] = useState(true);
+
 
   const handlePasswordChange = (e) => {
     const newPassword = e.target.value;
     setPass(newPassword);
     setPasswordsMatch(newPassword === confirmPass);
+  
+    // Password complexity requirements
+    const regexUpperCase = /[A-Z]/;
+    const regexLowerCase = /[a-z]/;
+    const regexSpecialChar = /[!@#$%^&*(),.?":{}|<>]/;
+  
+    const isPasswordValid =
+      newPassword.length >= 8 &&
+      regexUpperCase.test(newPassword) &&
+      regexLowerCase.test(newPassword) &&
+      regexSpecialChar.test(newPassword);
+  
+    // Set a state variable indicating whether the password meets the complexity requirements
+    setPasswordIsValid(isPasswordValid);
   };
+
   const handleConfirmPasswordChange = (e) => {
     const newConfirmPassword = e.target.value;
     setConfirmPass(newConfirmPassword);
@@ -84,62 +101,98 @@ export default function SignInPage() {
           Create your account
         </p>
         <br/>
+        
+        {!passwordIsValid && (
+          <p className="password-requirements">
+            Password must be at least 8 characters long and include uppercase, lowercase, and special characters.
+          </p>
+        )}
 
-        <form className='trans-bg' onSubmit={handleSubmit}>
-          {/*USERNAME*/}
-          <label className='lbl-form'>Username</label><br/>
-          <div style={{display:'flex'}}>
-            <Icon icon="solar:user-outline" className='signing-icon'/>
-            <input type='text' className='input-form' required
-              value={username}
-              onChange={(e)=>setUsername(e.target.value)}/>
-          </div>
+        <form onSubmit={handleSubmit}>
 
-        {/*FIRST NAME*/}
-        <label className='lbl-form'>First Name</label><br/>
-          <div style={{display:'flex'}}>
-            <Icon icon="solar:user-outline" className='signing-icon'/>
-            <input type='text' className='input-form' required
-              value={fname}
-              onChange={(e)=>setFname(e.target.value)}/>
+            {/*USERNAME*/}
+            <div>
+              <div className='input-div'>
+                <Icon icon="solar:user-outline" className='signing-icon'/>
+                <input type='text' className='long-input' required
+                  value={username}
+                  onChange={(e)=>setUsername(e.target.value)}
+                  placeholder='Username'/>
+              </div>
+            </div>
+            <br/>
+            <div>
+              {/*EMAIL*/}
+              <div className='input-div'>
+                <Icon icon="ic:outline-email" className='signing-icon'/>
+                &nbsp;
+                <input type='email' className='long-input' value={email} required
+                  onChange={(e)=>setEmail(e.target.value)}
+                  placeholder='Email'/>
+              </div>
+            </div>
+          <br/>
+          <div className='su-group'>
+            <div>
+              {/*FIRST NAME*/}
+              <div className='input-div'>
+                <Icon icon="solar:user-outline" className='signing-icon'/>
+                &nbsp;
+                <input type='text' className='input-form' required
+                  value={fname}
+                  onChange={(e)=>setFname(e.target.value)}
+                  placeholder='First Name'/>
+              </div>
+            </div>
+            <br/>
+            &nbsp;&nbsp;
+            <div>
+              {/*LAST NAME*/}
+              <div className='input-div'>
+                
+                <input type='text' className='input-form' required
+                  value={lname}
+                  onChange={(e)=>setLname(e.target.value)}
+                  placeholder='Last Name'/>
+              </div>
+            </div>
+            
           </div>
+          
 
-        {/*LAST NAME*/}
-        <label className='lbl-form'>Last Name</label><br/>
-          <div style={{display:'flex'}}>
-            <Icon icon="solar:user-outline" className='signing-icon'/>
-            <input type='text' className='input-form' required
-              value={lname}
-              onChange={(e)=>setLname(e.target.value)}/>
+          <br/>
+          <div className='su-group'>
+            <div>
+              {/* PASSWORD */}
+              <div className='input-div'>
+                <Icon icon="solar:lock-outline" className="signing-icon"/>
+                &nbsp;
+                <input
+                  type="password"
+                  className={`input-form ${passwordIsValid ? '' : 'invalid-password'}`}
+                  required
+                  value={pass}
+                  onChange={handlePasswordChange}
+                  placeholder='Password'
+                />
+              </div>
+            </div>
+            &nbsp;&nbsp;
+            <div>
+              {/* CONFIRM PASSWORD */}
+              <div className='input-div'>
+                <input type="password" className="input-form" required
+                  value={confirmPass}
+                  onChange={handleConfirmPasswordChange}
+                  placeholder='Confirm Password'
+                />
+              </div>
+            </div>
+            
           </div>
+          
 
-          {/*EMAIL*/}
-          <label className='lbl-form'>Email</label><br/>
-          <div style={{display:'flex'}}>
-            <Icon icon="ic:outline-email" className='signing-icon'/>
-            <input type='email' className='input-form' value={email} required
-              onChange={(e)=>setEmail(e.target.value)}/>
-          </div>
-
-          {/* PASSWORD */}
-          <label className="lbl-form">Password</label><br />
-          <div className="trans-bg" style={{ display: 'flex' }}>
-            <Icon icon="solar:lock-outline" className="signing-icon" />
-            <input type="password" className="input-form" required
-              value={pass}
-              onChange={handlePasswordChange}
-            />
-          </div>
-
-          {/* CONFIRM PASSWORD */}
-          <label className="lbl-form">Confirm Password</label><br />
-          <div className="trans-bg" style={{ display: 'flex' }}>
-            <Icon icon="solar:lock-outline" className="signing-icon" />
-            <input type="password" className="input-form" required
-              value={confirmPass}
-              onChange={handleConfirmPasswordChange}
-            />
-          </div>
+          
 
           <br/>
           <input type='submit' className='btnSign' value='Sign Up'></input>

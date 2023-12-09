@@ -24,8 +24,9 @@ div, p, a, li, nav, form{
 .lp-left,
 .lp-right{
   flex: 1;
-  padding: 20px; /* Add padding or adjust as needed */
-  margin: 10px;
+  padding: 5px; /* Add padding or adjust as needed */
+  margin: 5px;
+  width: 450px;
 }
 .btnGetStarted{
   background-color: #38b7fe;
@@ -64,27 +65,45 @@ a:hover{
   text-align: left;
 }
 .input-form{
-  background-color: transparent;
-  border: 1px solid black;
+  background-color: white;
+  border: 1px solid #004dad;
   padding: 10px;
   border-radius: 30px;
-  width: 200px
+  width: 135px
 }
+
+.input-form2{
+  background-color: white;
+  border: 1px solid #004dad;
+  padding: 10px;
+  border-radius: 30px;
+  width: 200px;
+
+}
+
 .btnSign{
   padding: 10px;
   border: none;
   background-color: #2b6bb0;
   color: white;
-  font-size: 15px;
+  font-size: 20px;
   border-radius: 30px;
   cursor: pointer;
-  width: 150px;
+  width: 200px;
+  font-family: 'Bangers';
 }
+
+.btnSign:hover{
+  background-color: #38b7fe;
+  
+}
+
 .signing-icon{
-  color:#555;
+  color:#004dad;
   width: 30px; 
   height: 30px;
   background-color:transparent;
+  left: 20px;
 }
 
 .popup-overlay {
@@ -113,4 +132,40 @@ a:hover{
   background-image: url(./LoggedOutAssets/birb1.png);
   height: 181px;
   width: 174px;
+}
+
+.input-div{
+  align-items: center; /* Center content horizontally */
+  display: flex;
+}
+
+.su-group{
+  display: flex;
+}
+
+.input-div2{
+  align-items: center; /* Center content horizontally */
+  display: flex;
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.long-input{
+  background-color: white;
+  border: 1px solid #004dad;
+  padding: 10px;
+  border-radius: 30px;
+  width: 300px
+}
+
+.password-requirements{
+  color: red;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

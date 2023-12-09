@@ -69,18 +69,21 @@ const Progress = ({ loggedInUsername }) => {
 
       {/* DISPLAY PROGRESS TRACKERS */}
       <div className='progress-container'>
-        {progressTrackers.map((tracker) => (
-          <div className='progress-card' key={tracker.progressTrackerId}>
-            <strong>{tracker.actName}</strong>
-            <div className={`progress-bar ${tracker.completed ? 'completed' : 'incomplete'}`} style={{ width: `${tracker.progPerc}%` }}></div>
-            <p style={{ color: tracker.completed ? 'green' : 'red' }}>
-              {tracker.completed ? 'Completed' : 'Incomplete'}
-            </p>
-            {/* Add more details or styles as needed */}
-          </div>
-        ))}
+        {progressTrackers && progressTrackers.length > 0 ? (
+          progressTrackers.map((tracker) => (
+            <div className='progress-card' key={tracker.progressTrackerId}>
+              <strong>{tracker.actName}</strong>
+              <div className={`progress-bar ${tracker.completed ? 'completed' : 'incomplete'}`} style={{ width: `${tracker.progPerc}%` }}></div>
+              <p style={{ color: tracker.completed ? 'green' : 'red' }}>
+                {tracker.completed ? 'Completed' : 'Incomplete'}
+              </p>
+              {/* Add more details or styles as needed */}
+            </div>
+          ))
+        ) : (
+          <p>You have not yet started any progress</p>
+        )}
       </div>
-
     </div>
   );
 };

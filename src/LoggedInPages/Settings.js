@@ -12,24 +12,27 @@ const Settings = ({ loggedInUsername }) => {
   const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isEditingProfile, setIsEditingProfile] = useState(true);
   const [showUpdatePopup, setShowUpdatePopup] = useState(false);
-
-
+  const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
+  
+  //HEADER DROPDOWN
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
+  //FETCHING DATA
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const response = await fetch(`http://localhost:8080/student/getStudentByUsername/${loggedInUsername}`);
         const data = await response.json();
         setUserData(data);
-        setFirstName(data.fname || '');
-        setLastName(data.lname || '');
-        setEmail(data.email || '');
+        setFirstName(data.fname);
+        setLastName(data.lname);
+        setEmail(data.email);
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
@@ -38,9 +41,14 @@ const Settings = ({ loggedInUsername }) => {
     fetchUserData();
   }, [loggedInUsername]);
 
+  //FOR UPDATING FIRSTNAME, LASTNAME, & EMAIL
   const handleUpdate = async (e) => {
     e.preventDefault();
 
+    // Show the confirmation popup
+    setShowConfirmationPopup(true);
+  };
+  const handleConfirmUpdate = async () => {
     try {
       const response = await fetch(`http://localhost:8080/student/updateStudentProfile?username=${loggedInUsername}`, {
         method: 'PUT',
@@ -63,7 +71,6 @@ const Settings = ({ loggedInUsername }) => {
           email: email,
         });
         setShowUpdatePopup(true); // Set the state to show the pop-up
-
       } else {
         console.error('Failed to update student');
         alert('Failed to update student');
@@ -72,16 +79,28 @@ const Settings = ({ loggedInUsername }) => {
       console.error('Error updating student:', error);
       alert('Error updating student:', error);
     }
+
+    // Close the confirmation popup
+    setShowConfirmationPopup(false);
   };
 
+  //FOR UPDATING PASSWORD
   const handleUpdatePassword = async (e) => {
     e.preventDefault();
-  
+
+    // Show the confirmation popup
+    setShowConfirmationPopup(true);
+  };
+
+  const handleConfirmUpdatePassword = async () => {
+    // Close the confirmation popup
+    setShowConfirmationPopup(false);
+
     if (newPassword !== confirmPassword) {
       alert('New password and confirm password do not match');
       return;
     }
-  
+
     try {
       const response = await fetch(`http://localhost:8080/student/updateStudentPassword?username=${loggedInUsername}`, {
         method: 'PUT',
@@ -89,12 +108,12 @@ const Settings = ({ loggedInUsername }) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          oldPassword: password, // Use the correct state variable for old password
+          oldPassword: password,
           newPassword: newPassword,
           confirmPassword: confirmPassword,
         }),
       });
-  
+
       if (response.ok) {
         console.log('Password updated successfully');
         // Clear the password fields after a successful update
@@ -111,14 +130,18 @@ const Settings = ({ loggedInUsername }) => {
       alert('Error updating password:', error);
     }
   };
+
   
 
+  //TOGGLE BETWEEN "EDIT PASSWORD" and "EDIT PROFILE"
   const handleToggleForm = () => {
     setIsEditingProfile(!isEditingProfile);
   };
 
   return (
     <div className='settings-page'>
+      {/* Overlay */}
+      {showConfirmationPopup && <div className='overlay'></div>}
       <div className='hh-container'>
         <Icon icon="solar:settings-outline" color="white" width="50" height="50" className='hh-icon'/>
         <h1 className='hh-greet'>SETTINGS</h1>
@@ -145,73 +168,84 @@ const Settings = ({ loggedInUsername }) => {
         </div>
       </div>
       <br />
-
-      <table className='settings-table'>
-        <tbody>
-          <tr>
-            <td className='info-table'>Username</td>
-            <td className='value-table'>{loggedInUsername}</td>
-          </tr>
-          <tr>
-            <td className='info-table'>First Name</td>
-            <td className='value-table'>{firstName}</td>
-          </tr>
-          <tr>
-            <td className='info-table'>Last Name</td>
-            <td className='value-table'>{lastName}</td>
-          </tr>
-          <tr>
-            <td className='info-table'>Email</td>
-            <td className='value-table'>{email}</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <br/>
-      <button className='edit-btns' onClick={handleToggleForm}>
-        {isEditingProfile ? 'Edit Password' : 'Edit Profile'}
-      </button>
+      
+      <div className='tblProfile'>
+        <table className='settings-table'>
+          <tbody>
+            <tr>
+              Your Profile
+            </tr>
+            <tr>
+              <td className='info-table'>Username</td>
+              <td className='value-table'>{loggedInUsername}</td>
+            </tr>
+            <tr>
+              <td className='info-table'>First Name</td>
+              <td className='value-table'>{userData?.fname || firstName}</td>
+            </tr>
+            <tr>
+              <td className='info-table'>Last Name</td>
+              <td className='value-table'>{userData?.lname || lastName}</td>
+            </tr>
+            <tr>
+              <td className='info-table'>Email</td>
+              <td className='value-table'>{userData?.email || email}</td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <button className='edit-btns' onClick={handleToggleForm}>
+          {isEditingProfile ? 'Edit Password' : 'Edit Profile'}
+        </button>
+      </div>
       <br />
+      <hr className='pdiv'/>
       <br />
-      <hr />
-      <br />
-
       {showUpdatePopup && <UpdatePopup onClose={() => setShowUpdatePopup(false)} />} {/* Render the pop-up component */}
+      
+      {/* Confirmation Popup */}
+      {showConfirmationPopup && (
+        <div className='confirmation-popup'>
+          <p>Are you sure you want to update your profile?</p>
+          <button onClick={isEditingProfile ? handleConfirmUpdate : handleConfirmUpdatePassword}>Yes</button>
+          <button onClick={() => setShowConfirmationPopup(false)}>No</button>
+        </div>
+      )}
 
       {isEditingProfile ? (
         <form className='updateProfile' onSubmit={handleUpdate}>
           <div style={{display:'flex'}}>
             <div>
               <label className='lblUpdate'>First Name</label><br />
-              <input type='text' className='txtUpdate' value={firstName} onChange={(e) => setFirstName(e.target.value)} /><br />
+              <input type='text' className='txtUpdate' value={firstName} onChange={(e) => setFirstName(e.target.value)} required/><br />
             </div>
             &nbsp;&nbsp;&nbsp;
             <div>
               <label className='lblUpdate'>Last Name</label><br />
-              <input type='text' className='txtUpdate' value={lastName} onChange={(e) => setLastName(e.target.value)} /><br />
+              <input type='text' className='txtUpdate' value={lastName} onChange={(e) => setLastName(e.target.value)} required/><br />
             </div>
           </div>
           <label className='lblUpdate'>Email</label><br />
-          <input type='text' className='txtUpdate' value={email} onChange={(e) => setEmail(e.target.value)} /><br /><br />
-          <input type='submit' value="Update" />
+          <input type='text' className='txtUpdate' value={email} onChange={(e) => setEmail(e.target.value)} required/><br /><br />
+          <input type='submit' className='btnUpdatee' value="Update" />
         </form>
       ) : (
         <form className='updatePassword' onSubmit={handleUpdatePassword}>
           <label className='lblUpdate'>Old Password</label><br />
-          <input type='password' className='txtUpdate' value={password} onChange={(e) => setPassword(e.target.value)} /><br />
+          <input type='password' className='txtUpdate' value={password} onChange={(e) => setPassword(e.target.value)} required/><br />
           <div style={{display:'flex'}}>
             <div>
               <label className='lblUpdate'>New Password</label><br />
-              <input type='password' className='txtUpdate' value={newPassword} onChange={(e) => setNewPassword(e.target.value)} /><br />
+              <input type='password' className='txtUpdate' value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required/><br />
             </div>
             &nbsp;&nbsp;&nbsp;
             <div>
               <label className='lblUpdate'>Confirm Password</label><br />
-              <input type='password' className='txtUpdate' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} /><br /><br />
+              <input type='password' className='txtUpdate' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required/><br /><br />
             </div>
           </div>
           
-          <input type='submit' value="Update" />
+          <input type='submit' className='btnUpdatee' value="Update" />
         </form>
       )}
     </div>

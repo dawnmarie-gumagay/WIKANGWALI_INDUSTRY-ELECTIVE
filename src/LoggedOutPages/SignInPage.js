@@ -75,18 +75,32 @@ const SignInPage = ({ onLogin }) => {
           Sign in to your Account
         </p>
         <br />
+        {invalidCredentials && (
+          <p className='password-requirements'>
+            Invalid credentials. Please check your username and password.
+          </p>
+        )}
+
+        <br />
+        <br />
         <form onSubmit={handleSubmit}>
-          <label className='lbl-form'>Username</label><br />
-          <div style={{ display: 'flex' }}>
+          <div className='input-div'>
             <Icon icon="solar:user-outline" className='signing-icon' />
-            <input type='text' className='input-form' value={username} onChange={(e) => setUsername(e.target.value)} />
+            &nbsp;
+            <input type='text' className='input-form2'
+              value={username}
+              onChange={(e) => setUsername(e.target.value)} 
+              placeholder='Username'/>
           </div>
 
           <br />
-          <label className='lbl-form'>Password</label><br />
-          <div style={{ display: 'flex' }}>
+          <div className='input-div'>
             <Icon icon="solar:lock-outline" className='signing-icon' />
-            <input type='password' className='input-form' value={password} onChange={(e) => setPassword(e.target.value)} />
+            &nbsp;
+            <input type='password' className='input-form2'
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder='Password'/>
           </div>
           <a href="#ForgotPass" style={{ color: 'grey' }}>
             Forgot Password?
@@ -94,11 +108,7 @@ const SignInPage = ({ onLogin }) => {
           <br /><br />
           <input type='submit' className='btnSign' value='Sign In' />
         </form>
-        {invalidCredentials && (
-          <p style={{ color: 'red' }}>
-            Invalid credentials. Please check your username and password.
-          </p>
-        )}
+        
         <p>
           Don't have an account? <Link to="/SignUpPage">Sign Up</Link>
         </p>
