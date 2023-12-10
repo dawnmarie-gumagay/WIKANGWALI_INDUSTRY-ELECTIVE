@@ -89,7 +89,7 @@ a:hover{
   font-size: 20px;
   border-radius: 30px;
   cursor: pointer;
-  width: 200px;
+  width: 180px;
   font-family: 'Bangers';
 }
 
@@ -168,4 +168,31 @@ form{
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.birb2{
+  background-image: url(./LoggedOutAssets/birb2.png);
+  width: 200px;
+  height: 200px;
+  margin-left: 50px;
+}
+
+.link-lo{
+  color: grey;
+  margin-left: 100px;
+  margin-top: 5px;
+}
+
+.link-lo:hover{
+  color: #004dad;
+  text-decoration: underline;
+}
+
+.link-lo-still{
+  color: grey;
+}
+
+.link-lo-still:hover{
+  color: #004dad;
+  text-decoration: underline;
 }

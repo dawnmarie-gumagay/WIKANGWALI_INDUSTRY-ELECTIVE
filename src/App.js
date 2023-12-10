@@ -11,6 +11,9 @@ import SignUpPage from './LoggedOutPages/SignUpPage';
 import Signing from './LoggedOutPages/Signing';
 import AboutUsPage from './LoggedOutPages/AboutUsPage';
 import ContactUsPage from './LoggedOutPages/ContactUsPage';
+import ResetPassword from './LoggedOutPages/ResetPassword';
+import ResetPassword2 from './LoggedOutPages/ResetPassword2';
+import ResetPasswordSuccess from './LoggedOutPages/ResetPasswordSuccess';
 
 import Home from './LoggedInPages/Home'; 
 import Courses from './LoggedInPages/Courses';
@@ -326,6 +329,10 @@ function App() {
             <Route path="/SignUpPage" element={<SignUpPage/>}/>
             <Route path="/AboutUsPage" element={<AboutUsPage/>}/>
             <Route path="/ContactUsPage" element={<ContactUsPage/>}/>
+          
+            <Route path="/ResetPassword" element={<ResetPassword/>}/>
+            <Route path="/ResetPassword2" element={<ResetPassword2/>}/>
+            <Route path="/ResetPasswordSuccess" element={<ResetPasswordSuccess/>}/>
           </Routes>
         </div>
       )}

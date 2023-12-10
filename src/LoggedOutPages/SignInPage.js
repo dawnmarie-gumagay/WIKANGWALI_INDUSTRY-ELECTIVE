@@ -44,16 +44,16 @@ const SignInPage = ({ onLogin }) => {
         } else {
             // Login failed
             setInvalidCredentials(true);
-            console.error('Login failed:', responseData.message);
-            alert('Login failed:', responseData.message);
+            console.error(responseData.message);
+            alert(responseData.message);
         }
       } else {
-          console.error('Login failed:', responseData.message);
-          alert('Login failed:', responseData.message);
+          console.error(responseData.message);
+          alert(responseData.message);
       }
     } catch (error) {
-        console.error('Error during login:', error);
-        alert('Error during login:', error);
+        console.error(error);
+        alert(error);
     }
   };
 
@@ -74,14 +74,14 @@ const SignInPage = ({ onLogin }) => {
         <p style={{ fontFamily: 'Love Ya Like A Sister', color: '#2B6BB0' }}>
           Sign in to your Account
         </p>
-        <br />
+        <br /><br />
         {invalidCredentials && (
           <p className='password-requirements'>
             Invalid credentials. Please check your username and password.
           </p>
         )}
 
-        <br />
+        
         <br />
         <form onSubmit={handleSubmit}>
           <div className='input-div'>
@@ -102,15 +102,15 @@ const SignInPage = ({ onLogin }) => {
               onChange={(e) => setPassword(e.target.value)}
               placeholder='Password'/>
           </div>
-          <a href="#ForgotPass" style={{ color: 'grey' }}>
+          <Link to="/ResetPassword" className='link-lo'>
             Forgot Password?
-          </a>
+          </Link>
           <br /><br />
           <input type='submit' className='btnSign' value='Sign In' />
         </form>
         
         <p>
-          Don't have an account? <Link to="/SignUpPage">Sign Up</Link>
+          Don't have an account? <Link to="/SignUpPage" className='link-lo-still'>Sign Up</Link>
         </p>
       </div>
     </div>

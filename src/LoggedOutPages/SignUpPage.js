@@ -197,8 +197,8 @@ export default function SignInPage() {
           <br/>
           <input type='submit' className='btnSign' value='Sign Up'></input>
         </form>
-        <p className='trans-bg'>
-          Already have an account? <Link to="/SignInPage">Sign In</Link>
+        <p>
+          Already have an account? <Link to="/SignInPage" className='link-lo-still'>Sign In</Link>
         </p> 
       </div>
     </div>

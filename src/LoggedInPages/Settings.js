@@ -73,11 +73,13 @@ const Settings = ({ loggedInUsername }) => {
         setShowUpdatePopup(true); // Set the state to show the pop-up
       } else {
         console.error('Failed to update student');
-        alert('Failed to update student');
+        const errorData = await response.json();
+        const errorMessage = errorData.message || 'Failed to update student';
+        alert(errorMessage);
       }
     } catch (error) {
       console.error('Error updating student:', error);
-      alert('Error updating student:', error);
+      alert('Error updating student: ' + error.message || 'Unknown error');
     }
 
     // Close the confirmation popup
@@ -87,7 +89,16 @@ const Settings = ({ loggedInUsername }) => {
   //FOR UPDATING PASSWORD
   const handleUpdatePassword = async (e) => {
     e.preventDefault();
-
+  
+    // Password validation logic
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).{8,}$/;
+    if (!passwordRegex.test(newPassword)) {
+      alert(
+        'Password must contain at least 8 characters, including at least one uppercase letter, one lowercase letter, and one special character.'
+      );
+      return;
+    }
+  
     // Show the confirmation popup
     setShowConfirmationPopup(true);
   };
@@ -123,11 +134,13 @@ const Settings = ({ loggedInUsername }) => {
         setShowUpdatePopup(true); // Set the state to show the pop-up
       } else {
         console.error('Failed to update password');
-        alert('Failed to update password');
+        const errorData = await response.json();
+        const errorMessage = errorData.message || 'Failed to update password';
+        alert(errorMessage);
       }
     } catch (error) {
       console.error('Error updating password:', error);
-      alert('Error updating password:', error);
+      alert('Error updating password: ' + error.message || 'Unknown error');
     }
   };
 
