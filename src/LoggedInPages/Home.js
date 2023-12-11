@@ -6,11 +6,23 @@ import PropTypes from 'prop-types';
 
 const Home = ({ loggedInUsername }) => {
   const [userData, setUserData] = useState(null);
+  const [progressTrackers, setProgressTrackers] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
+
+  const getLastIncompleteTracker = () => {
+    for (let i = progressTrackers.length - 1; i >= 0; i--) {
+      if (!progressTrackers[i].completed) {
+        return progressTrackers[i];
+      }
+    }
+    // Return the last tracker if all are completed
+    return progressTrackers[progressTrackers.length - 1];
+  };
+  
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -25,7 +37,18 @@ const Home = ({ loggedInUsername }) => {
         }
     };
 
+    const fetchProgressTrackers = async () => {
+      try {
+        const response = await fetch(`http://localhost:8080/student/${loggedInUsername}/ViewStudentProgressT`);
+        const data = await response.json();
+        setProgressTrackers(data);
+      } catch (error) {
+        console.error('Error fetching progress trackers:', error);
+      }
+    };
+
     fetchUserData();
+    fetchProgressTrackers();
   }, [loggedInUsername]);
 
   return (
@@ -86,24 +109,25 @@ const Home = ({ loggedInUsername }) => {
         {/* 2.HOME - PROGRESS */}
         <div className='home-progress'>
           RECENT PROGRESS
-          <Link to="/Courses" className='hi'>
+          <Link to="/Progress" className='hi'>
             <Icon icon="icon-park-outline:next" className='hi-back'/>
           </Link>
           <br/>
+
           {/* DISPLAY RECENT PROGRESS */}
-          {userData?.progressTrackers && (
-            <div className='progress-container'>
-              {userData.progressTrackers.slice(0, 1).map((tracker) => (
-                <div key={tracker.progressTrackerId} className='progress-card'>
-                  <strong>{tracker.actName}</strong>
-                  <p className='progress-bar'>{tracker.progPerc}</p>
-                  <p style={{ color: tracker.completed ? 'green' : 'red' }}>
-                    Completion: {tracker.completed ? 'Completed' : 'Incomplete'}
-                  </p>
-                </div>
-              ))}
-            </div>
-          )}
+          <div className='progress-container'>
+            {progressTrackers && progressTrackers.length > 0 ? (
+              // Get the last incomplete progress tracker or the one before it
+              <div className='progress-card2' key={getLastIncompleteTracker().progressTrackerId}>
+                <strong>{getLastIncompleteTracker().actName}</strong>
+                <div className={`progress-bar ${getLastIncompleteTracker().completed ? 'completed' : 'incomplete'}`} style={{ width: `${getLastIncompleteTracker().progPerc}%` }}></div>
+                {/* Add more details or styles as needed */}
+              </div>
+            ) : (
+              <p>You have not yet started any progress</p>
+            )}
+          </div>
+
 
           <hr/>
           YOUR ACHIEVEMENTS

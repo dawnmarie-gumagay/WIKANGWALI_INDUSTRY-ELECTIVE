@@ -105,6 +105,7 @@ li{
   height: 530px;
   border-radius: 50px 0px 0px 20px;
   padding: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /*LOGGED-OUT MAIN CONTAINER ROUTING CHANGE SCREEN*/
@@ -119,6 +120,7 @@ li{
   margin-top: 20px;
   display: flex;
   justify-content: space-between;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .logo-landing{

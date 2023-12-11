@@ -13,7 +13,7 @@ export default function ResetPassword() {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:8080/student/forgotPassword/generateCode', {
+      const response = await fetch('http://localhost:8080/student/generateResetCode', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

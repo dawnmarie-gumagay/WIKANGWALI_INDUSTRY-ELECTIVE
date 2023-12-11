@@ -8,6 +8,9 @@ const Progress = ({ loggedInUsername }) => {
   const [userData, setUserData] = useState(null);
   const [progressTrackers, setProgressTrackers] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [filteredTrackers, setFilteredTrackers] = useState([]);
+  const [toggle, setToggle] = useState('ALL');
+
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -29,6 +32,7 @@ const Progress = ({ loggedInUsername }) => {
         const response = await fetch(`http://localhost:8080/student/${loggedInUsername}/ViewStudentProgressT`);
         const data = await response.json();
         setProgressTrackers(data);
+        setFilteredTrackers(data);
       } catch (error) {
         console.error('Error fetching progress trackers:', error);
       }
@@ -37,6 +41,17 @@ const Progress = ({ loggedInUsername }) => {
     fetchUserData();
     fetchProgressTrackers();
   }, [loggedInUsername]);
+
+  useEffect(() => {
+    // Update the filtered trackers based on the selected toggle
+    if (toggle === 'ALL') {
+      setFilteredTrackers(progressTrackers);
+    } else if (toggle === 'IN PROGRESS') {
+      setFilteredTrackers(progressTrackers.filter(tracker => !tracker.completed));
+    } else if (toggle === 'COMPLETED') {
+      setFilteredTrackers(progressTrackers.filter(tracker => tracker.completed));
+    }
+  }, [toggle, progressTrackers]);
 
   return (
     <div>
@@ -66,24 +81,36 @@ const Progress = ({ loggedInUsername }) => {
           </div>
         </div>
       </div>
+      <br/>
+      
+      <div>
+        {/* DISPLAY PROGRESS TRACKERS */}
 
-      {/* DISPLAY PROGRESS TRACKERS */}
-      <div className='progress-container'>
-        {progressTrackers && progressTrackers.length > 0 ? (
-          progressTrackers.map((tracker) => (
-            <div className='progress-card' key={tracker.progressTrackerId}>
-              <strong>{tracker.actName}</strong>
-              <div className={`progress-bar ${tracker.completed ? 'completed' : 'incomplete'}`} style={{ width: `${tracker.progPerc}%` }}></div>
-              <p style={{ color: tracker.completed ? 'green' : 'red' }}>
-                {tracker.completed ? 'Completed' : 'Incomplete'}
-              </p>
-              {/* Add more details or styles as needed */}
-            </div>
-          ))
-        ) : (
-          <p>You have not yet started any progress</p>
-        )}
+        {/* TOGGLE BUTTONS */}
+        <button className='btnAll' onClick={() => setToggle('ALL')}>ALL</button>
+        <button className='btnInc'onClick={() => setToggle('IN PROGRESS')}>IN PROGRESS</button>
+        <button className='btnC'onClick={() => setToggle('COMPLETED')}>COMPLETED</button>
+
+        {/* DISPLAY PROGRESS TRACKERS */}
+        <div className='progress-container'>
+          {filteredTrackers && filteredTrackers.length > 0 ? (
+            filteredTrackers.map((tracker) => (
+              <div className='progress-card' key={tracker.progressTrackerId}>
+                <strong>{tracker.actName}</strong>
+                <div className={`progress-bar ${tracker.completed ? 'completed' : 'incomplete'}`} style={{ width: `${tracker.progPerc}%` }}></div>
+                <p style={{ color: tracker.completed ? 'green' : 'red' }}>
+                  {tracker.completed ? 'Completed' : 'Incomplete'}
+                </p>
+                {/* Add more details or styles as needed */}
+              </div>
+            ))
+          ) : (
+            <p>You have not yet started any progress</p>
+          )}
+        </div>
+
       </div>
+      
     </div>
   );
 };

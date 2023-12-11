@@ -170,6 +170,7 @@ function App() {
 
       {isLoggedIn ? (
         <div className="logged-in">
+          
           <nav className="nav-btns">
             <ul>
               {isAdmin ? (
@@ -271,7 +272,7 @@ function App() {
                   <Icon icon="tabler:logout" className='nav-icons' />
                   Log Out
                 </button>
-                {showLogOutConfirm && <LogOutConfirm onClose={handleCancelClick} onLogout={handleLogout} />}
+                
               </li>
             </ul>
           </nav>
@@ -316,8 +317,8 @@ function App() {
               )}
               <Route path="/ConfirmLogOut" element={<LogOutConfirm onClose={handleCancelClick} onLogout={handleLogout} />} />
             </Routes>
-            <div id="portal-root"></div>
           </div>
+          {showLogOutConfirm && <LogOutConfirm onClose={handleCancelClick} onLogout={handleLogout} />}
         </div>
 
       ) : (

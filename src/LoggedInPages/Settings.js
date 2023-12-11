@@ -144,8 +144,6 @@ const Settings = ({ loggedInUsername }) => {
     }
   };
 
-  
-
   //TOGGLE BETWEEN "EDIT PASSWORD" and "EDIT PROFILE"
   const handleToggleForm = () => {
     setIsEditingProfile(!isEditingProfile);
@@ -186,7 +184,7 @@ const Settings = ({ loggedInUsername }) => {
         <table className='settings-table'>
           <tbody>
             <tr>
-              Your Profile
+              <td>Your Profile</td>
             </tr>
             <tr>
               <td className='info-table'>Username</td>
@@ -211,9 +209,9 @@ const Settings = ({ loggedInUsername }) => {
           {isEditingProfile ? 'Edit Password' : 'Edit Profile'}
         </button>
       </div>
-      <br />
+
       <hr className='pdiv'/>
-      <br />
+
       {showUpdatePopup && <UpdatePopup onClose={() => setShowUpdatePopup(false)} />} {/* Render the pop-up component */}
       
       {/* Confirmation Popup */}
@@ -232,26 +230,32 @@ const Settings = ({ loggedInUsername }) => {
               <label className='lblUpdate'>First Name</label><br />
               <input type='text' className='txtUpdate' value={firstName} onChange={(e) => setFirstName(e.target.value)} required/><br />
             </div>
-            &nbsp;&nbsp;&nbsp;
+            
             <div>
               <label className='lblUpdate'>Last Name</label><br />
               <input type='text' className='txtUpdate' value={lastName} onChange={(e) => setLastName(e.target.value)} required/><br />
             </div>
           </div>
-          <label className='lblUpdate'>Email</label><br />
-          <input type='text' className='txtUpdate' value={email} onChange={(e) => setEmail(e.target.value)} required/><br /><br />
+          <div style={{marginTop:'10px'}}>
+            <label className='lblUpdate'>Email</label><br />
+          <input type='text' className='txtUpdate' style={{width:'350px'}} value={email} onChange={(e) => setEmail(e.target.value)} required/><br /><br />
+          </div>
+          
           <input type='submit' className='btnUpdatee' value="Update" />
         </form>
       ) : (
         <form className='updatePassword' onSubmit={handleUpdatePassword}>
-          <label className='lblUpdate'>Old Password</label><br />
-          <input type='password' className='txtUpdate' value={password} onChange={(e) => setPassword(e.target.value)} required/><br />
-          <div style={{display:'flex'}}>
+          <div>
+            <label className='lblUpdate'>Old Password</label><br />
+            <input type='password' className='txtUpdate' style={{width:'350px'}} value={password} onChange={(e) => setPassword(e.target.value)} required/><br />
+          </div>
+          
+          <div style={{display:'flex', marginTop:'10px'}}>
             <div>
               <label className='lblUpdate'>New Password</label><br />
               <input type='password' className='txtUpdate' value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required/><br />
             </div>
-            &nbsp;&nbsp;&nbsp;
+
             <div>
               <label className='lblUpdate'>Confirm Password</label><br />
               <input type='password' className='txtUpdate' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required/><br /><br />

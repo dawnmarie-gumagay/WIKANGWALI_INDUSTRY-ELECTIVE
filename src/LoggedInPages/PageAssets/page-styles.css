@@ -252,7 +252,7 @@ h1, div, p, button, a, input, label, table, td, tr, tbody, ul, strong, h4{
   color: white;
   padding: 5px;
   padding-right: 20px;
-  font-family: 'Bangers';
+  font-family: 'Love Ya Like A Sister';
 }
 
 .value-table{
@@ -336,6 +336,13 @@ h1, div, p, button, a, input, label, table, td, tr, tbody, ul, strong, h4{
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.progress-card2{
+  border-radius: 8px;
+  padding: 5px;
+  margin: 10px;
+  width: 300px;
+}
+
 .progress-bar {
   background-color: #3498db;
   height: 10px;
@@ -404,12 +411,14 @@ h1, div, p, button, a, input, label, table, td, tr, tbody, ul, strong, h4{
 
 .tblProfile{
   display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .pdiv{
-  width: 400px;
-  height: 5px;
+  height: 3px;
   background-color: #0745A3;
+  margin: 10px;
 }
 
 .pt-container{
@@ -482,4 +491,51 @@ h1, div, p, button, a, input, label, table, td, tr, tbody, ul, strong, h4{
 .hra{
   width: 5px;
   height: 445px;
+}
+
+.btnAll,
+.btnInc,
+.btnC{
+  margin: 5px;
+  margin-left: 10px;
+  padding: 10px;
+  border-radius: 15px;
+  font-family: 'Bangers';
+  font-size: 20px;
+}
+
+.btnAll{
+  background-color: white;
+  border: 2px solid #0745A3;
+  color: #0745A3;
+}
+
+.btnAll:hover{
+  background-color: #0745A3;
+  border: 2px solid #0745A3;
+  color: white;
+}
+
+.btnInc{
+  background-color: white;
+  border: 2px solid #ff0000;
+  color: #ff0000;
+}
+
+.btnInc:hover{
+  background-color: #ff0000;
+  border: 2px solid #ff0000;
+  color: white;
+}
+
+.btnC{
+  background-color: white;
+  border: 2px solid #2ecc71;
+  color: #2ecc71;
+}
+
+.btnC:hover{
+  background-color: #2ecc71;
+  border: 2px solid #2ecc71;
+  color: white;
 }

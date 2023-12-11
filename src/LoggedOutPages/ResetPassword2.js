@@ -16,7 +16,7 @@ export default function ResetPassword2() {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:8080/student/forgotPassword/resetPassword', {
+      const response = await fetch('http://localhost:8080/student/resetPassword', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
