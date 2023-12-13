@@ -29,6 +29,7 @@ import { AdminAchievements } from './AdminPages/AdminAchievements';
 
 import ParentModeConfirm from './ParentModeConfirm';
 import StudentModeConfirm from './StudentModeConfirm';
+import SignUpSuccess from './LoggedOutPages/SignUpSuccess';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -207,7 +208,7 @@ function App() {
                   {!isParentMode && (
                     <>
                   <li>
-                      <div className='navLogo'/>
+                    <div className='navLogo'/>
                   </li>
                   <li > <Link to="/Home" className="btnNav">
                     <Icon icon="octicon:home-16" className='nav-icons'/>
@@ -328,6 +329,7 @@ function App() {
             <Route path="/Signing" element={<Signing />} />
             <Route path="/SignInPage" element={<SignInPage onLogin={handleLogin}/>}/>
             <Route path="/SignUpPage" element={<SignUpPage/>}/>
+            <Route path="/SignUpSuccess" element={<SignUpSuccess/>}/>
             <Route path="/AboutUsPage" element={<AboutUsPage/>}/>
             <Route path="/ContactUsPage" element={<ContactUsPage/>}/>
           

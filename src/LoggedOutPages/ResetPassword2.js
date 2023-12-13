@@ -12,8 +12,26 @@ export default function ResetPassword2() {
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
+  const validatePassword = () => {
+    // Add your password validation logic here
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+    if (!passwordRegex.test(newPassword)) {
+      setErrorMessage(
+        'Password must be at least 8 characters long and include at least one lowercase letter, one uppercase letter, one digit, and one special character.'
+      );
+      return false;
+    }
+
+    return true;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validatePassword()) {
+      return;
+    }
 
     try {
       const response = await fetch('http://localhost:8080/student/resetPassword', {

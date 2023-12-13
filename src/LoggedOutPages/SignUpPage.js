@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Icon } from '@iconify/react';
 import './loggedout-styles.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function SignInPage() {
 
@@ -14,6 +14,7 @@ export default function SignInPage() {
   const [passwordsMatch, setPasswordsMatch] = useState(true); // Added state for validation
   const[passwordIsValid, setPasswordIsValid] = useState(true);
 
+  const navigate = useNavigate();
 
   const handlePasswordChange = (e) => {
     const newPassword = e.target.value;
@@ -65,7 +66,7 @@ export default function SignInPage() {
             if (response.ok) {
                 console.log('User registered successfully!');
                 console.log(responseData); // Log the response data
-                alert('User registered successfully!');
+                navigate('/SignUpSuccess'); // Change this path based on your application's routing
             } else {
                 console.error('Failed to register user');
                 alert('Failed to register user');
